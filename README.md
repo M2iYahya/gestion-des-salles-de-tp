@@ -1,4 +1,4 @@
-# Gestion des Salles de TP Physique Docker
+# Gestion des Salles de TP Physique
 
 Application web pour la gestion des réservations, équipements, et plannings des salles de travaux pratiques (TP) en physique. Déployez et gérez facilement vos ressources avec une interface intuitive.
 
@@ -14,8 +14,8 @@ Application web pour la gestion des réservations, équipements, et plannings de
 
 Clonez le dépôt :
 ```bash
-git clone https://github.com/votre-repo/gestion-tp-physique.git
-cd gestion-tp-physique
+git clone https://github.com/Yahya-Elamri/gestion-des-salles-de-tp/
+cd gestion-des-salles-de-tp
 ```
 
 Lancez les services avec Docker :
