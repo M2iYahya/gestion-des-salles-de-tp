@@ -1,0 +1,52 @@
+services:
+  db:
+    build: ./database
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: mydb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: pass
+    networks:
+      - app-network
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  backend:
+    build: ./back-end
+    ports:
+      - "8080:8080"  # auth
+      - "8089:8089"  # cdn
+      - "8081:8081"  # local
+      - "8083:8083"  # reservation
+      - "8082:8082"  # user
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/gestion_salles_tp_physique
+      SPRING_DATASOURCE_USERNAME: user
+      SPRING_DATASOURCE_PASSWORD: pass
+    volumes:
+      - ./uploads:/app/cdn/uploads
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+  frontend:
+    build: ./front-end
+    ports:
+      - "3000:3000"
+    environment:
+      NEXT_PUBLIC_AUTH_API: http://backend:8080
+      NEXT_PUBLIC_USER_API: http://backend:8089
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+volumes:
+  mysql-data:
+
+networks:
+  app-network:
+    driver: bridge
