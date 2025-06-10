@@ -35,6 +35,8 @@ interface Reservation {
   statut: "EN_ATTENTE" | "APPROUVEE" | "REJETEE";
 }
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
 const PageStatistiques: React.FC = () => {
   const [reservations, setReservations] = useState<Reservation[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -46,7 +48,7 @@ const PageStatistiques: React.FC = () => {
     const recupererReservations = async () => {
       try {
         setIsLoading(true);
-        const res = await fetch("http://localhost:8080/admin/reservations", {
+        const res = await fetch(`${apiUrl}/admin/reservations`, {
           method: "GET",
           headers: {
             'Authorization': `Bearer ${token}`,

@@ -49,12 +49,13 @@ const AdminReservations = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const { token } = useAuth();
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
   useEffect(() => {
     const fetchReservations = async () => {
       try {
         setIsLoading(true);
-        const res = await fetch("http://localhost:8080/admin/reservations", {
+        const res = await fetch(`${apiUrl}/admin/reservations`, {
           method: "GET",
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -90,7 +91,7 @@ const AdminReservations = () => {
       };
 
       const response = await fetch(
-        `http://localhost:8080/admin/reservations/${reservation.id}`,
+        `${apiUrl}/admin/reservations/${reservation.id}`,
         {
           method: "PUT",
           headers: {

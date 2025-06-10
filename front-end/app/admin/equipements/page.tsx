@@ -32,6 +32,7 @@ const LocalRegistrationForm: React.FC = () => {
     const [step, setStep] = useState(1);
     const [formData, setFormData] = useState<FormData>(initialFormData);
     const { token } = useAuth();
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value, files } = e.target;
@@ -80,7 +81,7 @@ const LocalRegistrationForm: React.FC = () => {
         });
 
         try {
-            const response = await fetch('http://localhost:8080/admin/local', {
+            const response = await fetch(`${apiUrl}/admin/local`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,

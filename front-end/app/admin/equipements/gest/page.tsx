@@ -216,7 +216,7 @@ const InsertEquipment = () => {
 
   const handleInsert = async (materiels: Omit<Materiel, 'id'>[]) => {
     const response = await fetch(
-      `http://localhost:8080/admin/local/${selectedLocal?.id}/materiels`,
+      `${apiUrl}/admin/local/${selectedLocal?.id}/materiels`,
       {
         method: 'POST',
         headers: {
@@ -237,8 +237,9 @@ const InsertEquipment = () => {
   };
 
   const handleDeleteMateriel = async (materielId: number) => {
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
     const response = await fetch(
-      `http://localhost:8080/admin/local/${materielId}/materiels`,
+      `${apiUrl}/admin/local/${materielId}/materiels`,
       {
         method: 'DELETE',
         headers: {

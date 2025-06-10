@@ -17,13 +17,14 @@ const DeleteLocalForm: React.FC<{
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState(false);
     const [confirmation, setConfirmation] = useState(false);
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
     const handleDelete = async () => {
         try {
             setLoading(true);
             setError(null);
             
-            const response = await fetch(`http://localhost:8080/admin/local/${local.id}`, {
+            const response = await fetch(`${apiUrl}/admin/local/${local.id}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${token}`

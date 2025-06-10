@@ -28,7 +28,7 @@ interface Local {
   imageLocal?: string;
   materiels: any[];
 }
-
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 const UpdateLocalForm: React.FC<{ 
     local: Local;
     onUpdate: (updatedLocal: Local) => Promise<void> 
@@ -76,7 +76,7 @@ const UpdateLocalForm: React.FC<{
             type: 'application/json'
           }));
       
-          const response = await fetch(`http://localhost:8080/admin/local/${local.id}`, {
+          const response = await fetch(`${apiUrl}/admin/local/${local.id}`, {
             method: 'PUT',
             headers: {
               'Authorization': `Bearer ${token}`
@@ -219,7 +219,7 @@ const UpdateLocal = () => {
   const [selectedLocal, setSelectedLocal] = useState<Local | null>(null);
 
   const handleUpdate = async (updatedLocal: Local) => {
-    const response = await fetch(`http://localhost:8080/admin/local/${updatedLocal.id}`, {
+    const response = await fetch(`${apiUrl}/admin/local/${updatedLocal.id}`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`

@@ -59,6 +59,8 @@ const initialFormData: FormData = {
   motDePasse: '',
 };
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
 const PersonRegistrationForm: React.FC = () => {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState<FormData>(initialFormData);
@@ -90,7 +92,7 @@ const PersonRegistrationForm: React.FC = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:8080/admin/personne', {
+      const response = await fetch(`${apiUrl}/admin/personne`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

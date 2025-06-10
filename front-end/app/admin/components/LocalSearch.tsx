@@ -12,6 +12,7 @@ const LocalSearch: React.FC<{ onLocalSelect: (local: Local) => void }> = ({ onLo
     const [error, setError] = useState('');
     const [isOpen, setIsOpen] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
   
     const debouncedSearch = useMemo(() => 
       debounce(async (query: string) => {
@@ -25,7 +26,7 @@ const LocalSearch: React.FC<{ onLocalSelect: (local: Local) => void }> = ({ onLo
           setLoading(true);
           setError('');
           const response = await fetch(
-            `http://localhost:8080/admin/local/search/${encodeURIComponent(query)}`,
+            `${apiUrl}/admin/local/search/${encodeURIComponent(query)}`,
             {
               headers: {
                 'Authorization': `Bearer ${token}`,

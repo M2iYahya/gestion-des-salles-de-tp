@@ -15,6 +15,8 @@ interface UpdateUserFormProps {
   onUpdateSuccess?: () => void;
 }
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
 const UpdateUserForm: React.FC<UpdateUserFormProps> = ({ user: initialUser, onUpdateSuccess }) => {
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -42,7 +44,7 @@ const UpdateUserForm: React.FC<UpdateUserFormProps> = ({ user: initialUser, onUp
       setLoading(true);
       setError(null);
       
-      const response = await fetch(`http://localhost:8080/admin/personne/${user.id}`, {
+      const response = await fetch(`${apiUrl}/admin/personne/${user.id}`, {
         method: "PUT",
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -346,7 +348,7 @@ const UserSearch: React.FC<{ onUserSelect: (user: User) => void }> = ({ onUserSe
         setLoading(true);
         setError('');
         const response = await fetch(
-          `http://localhost:8080/admin/personne/rechercher?search=${encodeURIComponent(query)}`,
+          `${apiUrl}/admin/personne/rechercher?search=${encodeURIComponent(query)}`,
           {
             headers: {
               'Authorization': `Bearer ${token}`,

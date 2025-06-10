@@ -28,6 +28,8 @@ interface Reservation {
   statut: 'EN_ATTENTE' | 'APPROUVEE' | 'REJETEE'; 
 }
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
 const ReservationSearch: React.FC<{ onResrvationSelect: (reservation: Reservation) => void }> = ({ onResrvationSelect }) => {
   const { token } = useAuth();
   const [searchTerm, setSearchTerm] = useState('');
@@ -49,7 +51,7 @@ const ReservationSearch: React.FC<{ onResrvationSelect: (reservation: Reservatio
         setLoading(true);
         setError('');
         const response = await fetch(
-          `http://localhost:8080/admin/reservations/search?q=${encodeURIComponent(query)}`,
+          `${apiUrl}/admin/reservations/search?q=${encodeURIComponent(query)}`,
           {
             headers: {
               'Authorization': `Bearer ${token}`,
@@ -157,7 +159,7 @@ const DeleteReservationForm = ({ reservation }: { reservation: Reservation }) =>
     setLoading(true);
 
     try {
-      const response = await fetch(`http://localhost:8080/admin/reservations/${reservation.id}`, {
+      const response = await fetch(`${apiUrl}/admin/reservations/${reservation.id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,

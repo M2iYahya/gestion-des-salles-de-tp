@@ -27,6 +27,8 @@ interface Local {
   materiels: Materiel[];
 }
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
 const AdminHome = () => {
   const [locals, setLocals] = React.useState<Local[]>([]);
   const [isLoading, setIsLoading] = React.useState(true);
@@ -37,7 +39,7 @@ const AdminHome = () => {
     const fetchPersonnes = async () => {
       try {
         setIsLoading(true);
-        const res = await fetch("http://localhost:8080/admin/local", {
+        const res = await fetch(`${apiUrl}/admin/local`, {
           method: "GET",
           headers: {
             'Authorization': `Bearer ${token}`,
