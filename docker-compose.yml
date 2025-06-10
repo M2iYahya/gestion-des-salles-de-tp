@@ -37,7 +37,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      NEXT_PUBLIC_AUTH_API: http://backend:8080
+      NEXT_PUBLIC_API_URL: http://localhost:8080
       NEXT_PUBLIC_USER_API: http://backend:8089
     depends_on:
       - backend

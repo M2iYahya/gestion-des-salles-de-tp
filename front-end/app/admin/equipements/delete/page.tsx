@@ -7,7 +7,7 @@ import { useAuth } from '@/app/components/providers/AuthProvider';
 import Header from '../../components/header';
 import LocalSearch from '../../components/LocalSearch';
 import { Label } from '@radix-ui/react-label';
-
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 const DeleteLocalForm: React.FC<{ 
     local: any;
     onDelete: () => Promise<void> 
@@ -17,7 +17,6 @@ const DeleteLocalForm: React.FC<{
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState(false);
     const [confirmation, setConfirmation] = useState(false);
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
     const handleDelete = async () => {
         try {

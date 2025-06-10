@@ -27,12 +27,11 @@ const initialFormData: FormData = {
     numeroSalle: '',
     images: [],
 };
-
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 const LocalRegistrationForm: React.FC = () => {
     const [step, setStep] = useState(1);
     const [formData, setFormData] = useState<FormData>(initialFormData);
     const { token } = useAuth();
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value, files } = e.target;

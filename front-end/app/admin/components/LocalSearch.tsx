@@ -3,7 +3,7 @@ import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { debounce } from 'lodash';
 import { Input } from '@/components/ui/input';
 import { AlertCircle, Search } from "lucide-react";
-
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 const LocalSearch: React.FC<{ onLocalSelect: (local: Local) => void }> = ({ onLocalSelect }) => {
     const { token } = useAuth();
     const [searchTerm, setSearchTerm] = useState('');
@@ -12,7 +12,6 @@ const LocalSearch: React.FC<{ onLocalSelect: (local: Local) => void }> = ({ onLo
     const [error, setError] = useState('');
     const [isOpen, setIsOpen] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
   
     const debouncedSearch = useMemo(() => 
       debounce(async (query: string) => {

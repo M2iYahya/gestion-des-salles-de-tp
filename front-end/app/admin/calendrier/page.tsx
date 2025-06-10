@@ -44,13 +44,13 @@ interface UpdateReservationPayload {
   utilisateurId: number;
 }
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
 const AdminReservations = () => {
   const [reservations, setReservations] = useState<Reservation[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const { token } = useAuth();
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-
   useEffect(() => {
     const fetchReservations = async () => {
       try {

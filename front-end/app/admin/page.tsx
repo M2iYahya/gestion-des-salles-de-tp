@@ -35,6 +35,8 @@ const AdminHome = () => {
   const [error, setError] = React.useState<string | null>(null);
   const { token } = useAuth();
 
+  console.log('Auth API:', process.env.NEXT_PUBLIC_API_URL);
+
   React.useEffect(() => {
     const fetchPersonnes = async () => {
       try {

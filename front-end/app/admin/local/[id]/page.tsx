@@ -82,7 +82,7 @@ const LocalPage = () => {
     if (!localData?.disponibilite || !selectedStart || !selectedEnd) return;
 
     try {
-      const response = await fetch(`${apiUrl}/admin/reservations', {
+      const response = await fetch(`${apiUrl}/admin/reservations`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

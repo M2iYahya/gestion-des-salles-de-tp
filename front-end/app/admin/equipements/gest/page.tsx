@@ -10,6 +10,8 @@ import { useAuth } from '@/app/components/providers/AuthProvider';
 import Header from '../../components/header';
 import LocalSearch from '../../components/LocalSearch';
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
 const LocalDetailsForm: React.FC<{ 
   local: Local;
   onInsert: (materiels: Omit<Materiel, 'id'>[]) => Promise<void>;
@@ -237,7 +239,6 @@ const InsertEquipment = () => {
   };
 
   const handleDeleteMateriel = async (materielId: number) => {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
     const response = await fetch(
       `${apiUrl}/admin/local/${materielId}/materiels`,
       {
