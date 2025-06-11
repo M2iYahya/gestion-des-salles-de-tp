@@ -44,6 +44,8 @@ interface UpdateReservationPayload {
   utilisateurId: number;
 }
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
 const AdminReservations = () => {
   const [reservations, setReservations] = useState<Reservation[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -54,7 +56,7 @@ const AdminReservations = () => {
     const fetchReservations = async () => {
       try {
         setIsLoading(true);
-        const res = await fetch(`http://localhost:8080/user/reservations/${user?.id}`, {
+        const res = await fetch(`${apiUrl}/user/reservations/${user?.id}`, {
           method: "GET",
           headers: {
             'Authorization': `Bearer ${token}`,

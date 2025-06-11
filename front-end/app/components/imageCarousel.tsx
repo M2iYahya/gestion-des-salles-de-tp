@@ -11,6 +11,8 @@ interface ThumbsGalleryProps {
   images?: string;
 }
 
+const imageApi = process.env.NEXT_PUBLIC_IMAGE_API;
+
 const ThumbsGallery = ({ images }: ThumbsGalleryProps) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
   const imageUrls = images?.split(',').filter(url => url.trim()) || [];
@@ -38,7 +40,7 @@ const ThumbsGallery = ({ images }: ThumbsGalleryProps) => {
           <SwiperSlide key={index}>
             <div className="relative aspect-video">
               <img
-                src={`http://localhost:8089${url.trim()}`}
+                src={`${imageApi}${url.trim()}`}
                 alt={`Main view ${index + 1}`}
                 className="w-full h-full object-cover rounded-xl"
               />
@@ -65,7 +67,7 @@ const ThumbsGallery = ({ images }: ThumbsGalleryProps) => {
           <SwiperSlide key={index}>
             <div className="relative aspect-video cursor-pointer transition-opacity hover:opacity-100">
               <img
-                src={`http://localhost:8089${url.trim()}`}
+                src={`${imageApi}${url.trim()}`}
                 alt={`Thumbnail ${index + 1}`}
                 className="w-full h-full object-cover rounded-lg border-2 border-transparent transition-all"
               />

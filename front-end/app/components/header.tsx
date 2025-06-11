@@ -4,6 +4,8 @@ import Image from './image';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
 function Header() {
   const router = useRouter();
   const [showMobileSearch, setShowMobileSearch] = useState(false);
@@ -11,7 +13,7 @@ function Header() {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch("http://localhost:8080/auth/disconnect", {
+      const response = await fetch(`${apiUrl}/auth/disconnect`, {
         method: "POST",
         credentials: "include",
       });

@@ -4,6 +4,7 @@ import { getRoleFromToken } from "./utils/getRole";
 import React, { useState,useEffect } from "react";
 import { isValidString } from "./utils/validateString";
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 function Home() {
   const [email, setEmail] = useState("");
@@ -41,7 +42,7 @@ function Home() {
     event.preventDefault();
 
     try {
-      const res = await fetch("http://localhost:8080/auth/login", {
+      const res = await fetch(`${apiUrl}/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

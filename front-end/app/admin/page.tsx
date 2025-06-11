@@ -28,14 +28,13 @@ interface Local {
 }
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+const imageApi = process.env.NEXT_PUBLIC_IMAGE_API;
 
 const AdminHome = () => {
   const [locals, setLocals] = React.useState<Local[]>([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const [error, setError] = React.useState<string | null>(null);
   const { token } = useAuth();
-
-  console.log('Auth API:', process.env.NEXT_PUBLIC_API_URL);
 
   React.useEffect(() => {
     const fetchPersonnes = async () => {
@@ -123,7 +122,7 @@ const AdminHome = () => {
               {local.imageLocal ? (
                   <div className="relative h-48 w-full">
                   <img 
-                    src={`http://localhost:8089${getFirstImage(local.imageLocal)}`}
+                    src={`${imageApi}${getFirstImage(local.imageLocal)}`}
                     alt="Local preview"
                     className="rounded-t-xl object-cover h-full w-full"
                   /></div>

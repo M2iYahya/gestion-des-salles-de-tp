@@ -25,6 +25,9 @@ interface Local {
   materiels: Materiel[];
 }
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+const imageApi = process.env.NEXT_PUBLIC_IMAGE_API;
+
 const UserHome = () => {
   const [locals, setLocals] = React.useState<Local[]>([]);
   const [isLoading, setIsLoading] = React.useState(true);
@@ -35,7 +38,7 @@ const UserHome = () => {
     const fetchPersonnes = async () => {
       try {
         setIsLoading(true);
-        const res = await fetch("http://localhost:8080/user/local", {
+        const res = await fetch(`${apiUrl}/user/local`, {
           method: "GET",
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -117,7 +120,7 @@ const UserHome = () => {
               {local.imageLocal ? (
                   <div className="relative h-48 w-full">
                   <img 
-                    src={`http://localhost:8089${getFirstImage(local.imageLocal)}`}
+                    src={`${imageApi}${getFirstImage(local.imageLocal)}`}
                     alt="Local preview"
                     className="rounded-t-xl object-cover h-full w-full"
                   /></div>

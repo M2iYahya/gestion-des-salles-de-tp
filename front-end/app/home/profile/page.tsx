@@ -10,6 +10,9 @@ import { Separator } from "@/components/ui/separator";
 import { cn } from '@/lib/utils'
 import { useAuth } from '@/app/components/providers/AuthProvider';
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+const imageApi = process.env.NEXT_PUBLIC_IMAGE_API;
+
 export default function ProfilePage() {
     const { token, user } = useAuth()
     const [profile, setProfile] = useState<User | null>(null)
@@ -21,7 +24,7 @@ export default function ProfilePage() {
         try {
           setIsLoading(true)
           const res = await fetch(
-            `http://localhost:8080/user/personne/${user?.id}`, {
+            `${apiUrl}/user/personne/${user?.id}`, {
               method: "GET",
               headers: {
                 'Authorization': `Bearer ${token}`,

@@ -9,6 +9,8 @@ import { Button } from '@/components/ui/button';
 import { Loader2, Clock, CheckCircle, XCircle } from 'lucide-react';
 import ImageCarousel from '@/app/components/imageCarousel';
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
 const LocalPage = () => {
   const [localData, setLocalData] = useState<Local | null>(null);
   const [loading, setLoading] = useState(true);
@@ -36,7 +38,7 @@ const LocalPage = () => {
       const id = getLocalId();
       try {
         setLoading(true);
-        const res = await fetch(`http://localhost:8080/user/local/${id}`, {
+        const res = await fetch(`${apiUrl}/user/local/${id}`, {
           headers: { 'Authorization': `Bearer ${token}` },
         });
 
@@ -59,7 +61,7 @@ const LocalPage = () => {
       try {
         setLoadingSlots(true);
         const response = await fetch(
-          `http://localhost:8080/user/reservations/availability?localId=${localData.id}&date=${reservationData.date}`,
+          `${apiUrl}/user/reservations/availability?localId=${localData.id}&date=${reservationData.date}`,
           { headers: { 'Authorization': `Bearer ${token}` } }
         );
 
@@ -80,7 +82,7 @@ const LocalPage = () => {
     if (!localData?.disponibilite || !selectedStart || !selectedEnd) return;
 
     try {
-      const response = await fetch('http://localhost:8080/user/reservations', {
+      const response = await fetch('${apiUrl}/user/reservations', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
