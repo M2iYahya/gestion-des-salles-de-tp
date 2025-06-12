@@ -1,0 +1,11 @@
+﻿{
+  "agentId": 2,
+  "agentName": "192",
+  "poolId": 1,
+  "poolName": "Default",
+  "serverUrl": "https://pipelinesghubeus15.actions.githubusercontent.com/lvS3VE2jGtNzeAnPBzNCYXKSAFFJMkYQw5IH1RovR7jJikONFY/",
+  "gitHubUrl": "https://github.com/Yahya-Elamri/gestion-des-salles-de-tp",
+  "workFolder": "_work",
+  "useV2Flow": true,
+  "serverUrlV2": "https://broker.actions.githubusercontent.com/"
+}
