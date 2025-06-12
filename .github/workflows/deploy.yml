@@ -1,0 +1,31 @@
+name: CI/CD via Password SSH
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    labels: [local-runner]
+
+    steps:
+    - name: Install sshpass
+      run: sudo apt-get update && sudo apt-get install -y sshpass
+
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Copy project files using rsync
+      run: |
+        sshpass -p "${{ secrets.PASSWORD }}" rsync -avz --delete \
+          -e "ssh -o StrictHostKeyChecking=no" ./ ${{ secrets.USER }}@${{ secrets.HOST }}:/home/${{ secrets.USER }}/app
+
+    - name: Deploy to VM via SSH with password
+      run: |
+        sshpass -p "${{ secrets.PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.USER }}@${{ secrets.HOST }} << 'EOF'
+          cd ~/app
+          docker-compose down || true
+          docker-compose build
+          docker-compose up -d
+        EOF
