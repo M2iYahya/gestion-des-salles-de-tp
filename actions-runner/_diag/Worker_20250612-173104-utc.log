@@ -1,0 +1,2317 @@
+[2025-06-12 17:31:04Z INFO HostContext] No proxy settings were found based on environmental variables (http_proxy/https_proxy/HTTP_PROXY/HTTPS_PROXY)
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Bin': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/bin'
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Root': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:04Z INFO HostContext] Well known config file 'Credentials': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/.credentials'
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Bin': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/bin'
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Root': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:04Z INFO HostContext] Well known config file 'Runner': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/.runner'
+[2025-06-12 17:31:04Z INFO Worker] Version: 2.325.0
+[2025-06-12 17:31:04Z INFO Worker] Commit: 71ed7cd46223bd5d61633445946813012b502d54
+[2025-06-12 17:31:04Z INFO Worker] Culture: en-US
+[2025-06-12 17:31:04Z INFO Worker] UI Culture: en-US
+[2025-06-12 17:31:04Z INFO Worker] Waiting to receive the job message from the channel.
+[2025-06-12 17:31:04Z INFO ProcessChannel] Receiving message of length 21122, with hash '561d856c70705e97df922194b6c788729f0dcc432021a74ff0f99f8b0094fe7d'
+[2025-06-12 17:31:04Z INFO Worker] Message received.
+[2025-06-12 17:31:04Z INFO Worker] Job message:
+ {
+  "fileTable": [
+    ".github/workflows/deploy.yml"
+  ],
+  "mask": [
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    }
+  ],
+  "steps": [
+    {
+      "type": "action",
+      "reference": {
+        "type": "script"
+      },
+      "displayNameToken": {
+        "type": 0,
+        "file": 1,
+        "line": 12,
+        "col": 13,
+        "lit": "Install sshpass"
+      },
+      "contextName": "__run",
+      "inputs": {
+        "type": 2,
+        "map": [
+          {
+            "key": "script",
+            "value": {
+              "type": 0,
+              "file": 1,
+              "line": 13,
+              "col": 12,
+              "lit": "apt-get update && apt-get install -y sshpass"
+            }
+          }
+        ]
+      },
+      "condition": "success()",
+      "id": "0cbad22a-2cbf-4d78-adcd-7a2d240a07cc",
+      "name": "__run"
+    },
+    {
+      "type": "action",
+      "reference": {
+        "type": "repository",
+        "name": "actions/checkout",
+        "ref": "v3",
+        "repositoryType": "GitHub"
+      },
+      "displayNameToken": {
+        "type": 0,
+        "file": 1,
+        "line": 15,
+        "col": 13,
+        "lit": "Checkout Code"
+      },
+      "contextName": "__actions_checkout",
+      "condition": "success()",
+      "id": "791aec18-9114-439d-b3b0-8e4f61d0c51a",
+      "name": "__actions_checkout"
+    },
+    {
+      "type": "action",
+      "reference": {
+        "type": "script"
+      },
+      "displayNameToken": {
+        "type": 0,
+        "file": 1,
+        "line": 18,
+        "col": 13,
+        "lit": "Copy project files using rsync"
+      },
+      "contextName": "__run_2",
+      "inputs": {
+        "type": 2,
+        "map": [
+          {
+            "key": "script",
+            "value": {
+              "type": 3,
+              "file": 1,
+              "line": 19,
+              "col": 12,
+              "expr": "format('sshpass -p \"{0}\" rsync -avz --delete \\\n  -e \"ssh -o StrictHostKeyChecking=no\" ./ {1}@{2}:/home/{3}/app\n', secrets.PASSWORD, secrets.USER, secrets.HOST, secrets.USER)"
+            }
+          }
+        ]
+      },
+      "condition": "success()",
+      "id": "c9e35d81-ad72-45f3-a642-1125b8cde38a",
+      "name": "__run_2"
+    },
+    {
+      "type": "action",
+      "reference": {
+        "type": "script"
+      },
+      "displayNameToken": {
+        "type": 0,
+        "file": 1,
+        "line": 23,
+        "col": 13,
+        "lit": "Deploy to VM via SSH with password"
+      },
+      "contextName": "__run_3",
+      "inputs": {
+        "type": 2,
+        "map": [
+          {
+            "key": "script",
+            "value": {
+              "type": 3,
+              "file": 1,
+              "line": 24,
+              "col": 12,
+              "expr": "format('sshpass -p \"{0}\" ssh -o StrictHostKeyChecking=no {1}@{2} << ''EOF''\n  cd ~/app\n  docker-compose down || true\n  docker-compose build\n  docker-compose up -d\nEOF\n', secrets.PASSWORD, secrets.USER, secrets.HOST)"
+            }
+          }
+        ]
+      },
+      "condition": "success()",
+      "id": "5a715fb3-7cdf-4394-883a-5e5004aaff90",
+      "name": "__run_3"
+    }
+  ],
+  "variables": {
+    "Actions.EnableHttpRedirects": {
+      "value": "true"
+    },
+    "DistributedTask.AddWarningToNode12Action": {
+      "value": "true"
+    },
+    "DistributedTask.AddWarningToNode16Action": {
+      "value": "true"
+    },
+    "DistributedTask.AllowRunnerContainerHooks": {
+      "value": "true"
+    },
+    "DistributedTask.DeprecateStepOutputCommands": {
+      "value": "true"
+    },
+    "DistributedTask.DetailUntarFailure": {
+      "value": "true"
+    },
+    "DistributedTask.EnableCompositeActions": {
+      "value": "true"
+    },
+    "DistributedTask.EnableJobServerQueueTelemetry": {
+      "value": "true"
+    },
+    "DistributedTask.EnhancedAnnotations": {
+      "value": "true"
+    },
+    "DistributedTask.ForceGithubJavascriptActionsToNode16": {
+      "value": "true"
+    },
+    "DistributedTask.ForceGithubJavascriptActionsToNode20": {
+      "value": "true"
+    },
+    "DistributedTask.LogTemplateErrorsAsDebugMessages": {
+      "value": "true"
+    },
+    "DistributedTask.MarkJobAsFailedOnWorkerCrash": {
+      "value": "true"
+    },
+    "DistributedTask.NewActionMetadata": {
+      "value": "true"
+    },
+    "DistributedTask.UploadStepSummary": {
+      "value": "true"
+    },
+    "DistributedTask.UseActionArchiveCache": {
+      "value": "true"
+    },
+    "DistributedTask.UseWhich2": {
+      "value": "true"
+    },
+    "HOST": {
+      "value": "***",
+      "isSecret": true
+    },
+    "PASSWORD": {
+      "value": "***",
+      "isSecret": true
+    },
+    "RunService.FixEmbeddedIssues": {
+      "value": "true"
+    },
+    "USER": {
+      "value": "***",
+      "isSecret": true
+    },
+    "actions_add_check_run_id_to_job_context": {
+      "value": "false"
+    },
+    "actions_display_helpful_actions_download_errors": {
+      "value": "true"
+    },
+    "actions_skip_retry_complete_job_upon_known_errors": {
+      "value": "true"
+    },
+    "actions_uses_cache_service_v2": {
+      "value": "true"
+    },
+    "github_token": {
+      "value": "***",
+      "isSecret": true
+    },
+    "system.from_run_service": {
+      "value": "true"
+    },
+    "system.github.job": {
+      "value": "deploy"
+    },
+    "system.github.launch_endpoint": {
+      "value": "https://launch.actions.githubusercontent.com"
+    },
+    "system.github.results_endpoint": {
+      "value": "https://results-receiver.actions.githubusercontent.com/"
+    },
+    "system.github.results_upload_with_sdk": {
+      "value": "true"
+    },
+    "system.github.token": {
+      "value": "***",
+      "isSecret": true
+    },
+    "system.github.token.permissions": {
+      "value": "{\"Contents\":\"read\",\"Metadata\":\"read\",\"Packages\":\"read\"}"
+    },
+    "system.orchestrationId": {
+      "value": "1d15a936-609b-4610-a0cc-0d93396b92a7.deploy.__default"
+    },
+    "system.phaseDisplayName": {
+      "value": "deploy"
+    },
+    "system.runner.lowdiskspacethreshold": {
+      "value": "100"
+    },
+    "system.runnerEnvironment": {
+      "value": "self-hosted"
+    }
+  },
+  "messageType": "RunnerJobRequest",
+  "plan": {
+    "scopeIdentifier": "00000000-0000-0000-0000-000000000000",
+    "planType": "actions",
+    "version": 0,
+    "planId": "1d15a936-609b-4610-a0cc-0d93396b92a7",
+    "planGroup": null,
+    "artifactUri": null,
+    "artifactLocation": null,
+    "definition": null,
+    "owner": null
+  },
+  "timeline": {
+    "id": "1d15a936-609b-4610-a0cc-0d93396b92a7",
+    "changeId": 0,
+    "location": null
+  },
+  "jobId": "54f9b4cf-9b7c-5a04-8591-b03cdc1a0810",
+  "jobDisplayName": "deploy",
+  "jobName": "__default",
+  "requestId": 0,
+  "lockedUntil": "0001-01-01T00:00:00",
+  "resources": {
+    "endpoints": [
+      {
+        "data": {
+          "ServerId": "",
+          "ServerName": "",
+          "CacheServerUrl": "https://artifactcache.actions.githubusercontent.com/lvS3VE2jGtNzeAnPBzNCYXKSAFFJMkYQw5IH1RovR7jJikONFY/",
+          "FeedStreamUrl": "wss://results-receiver.actions.githubusercontent.com/_ws/ingest.sock",
+          "ResultsServiceUrl": "https://results-receiver.actions.githubusercontent.com/",
+          "PipelinesServiceUrl": "https://pipelinesghubeus15.actions.githubusercontent.com/lvS3VE2jGtNzeAnPBzNCYXKSAFFJMkYQw5IH1RovR7jJikONFY/",
+          "GenerateIdTokenUrl": ""
+        },
+        "name": "SystemVssConnection",
+        "url": "https://run-actions-3-azure-eastus.actions.githubusercontent.com/65/",
+        "authorization": {
+          "parameters": {
+            "AccessToken": "***"
+          },
+          "scheme": "OAuth"
+        },
+        "isShared": false,
+        "isReady": true
+      }
+    ]
+  },
+  "contextData": {
+    "github": {
+      "t": 2,
+      "d": [
+        {
+          "k": "ref",
+          "v": "refs/heads/main"
+        },
+        {
+          "k": "sha",
+          "v": "fac36cb5fa32cf302868d20c5c7fc3ee6f2a381a"
+        },
+        {
+          "k": "repository",
+          "v": "Yahya-Elamri/gestion-des-salles-de-tp"
+        },
+        {
+          "k": "repository_owner",
+          "v": "Yahya-Elamri"
+        },
+        {
+          "k": "repository_owner_id",
+          "v": "53008976"
+        },
+        {
+          "k": "repositoryUrl",
+          "v": "git://github.com/Yahya-Elamri/gestion-des-salles-de-tp.git"
+        },
+        {
+          "k": "run_id",
+          "v": "15617240967"
+        },
+        {
+          "k": "run_number",
+          "v": "4"
+        },
+        {
+          "k": "retention_days",
+          "v": "90"
+        },
+        {
+          "k": "run_attempt",
+          "v": "1"
+        },
+        {
+          "k": "artifact_cache_size_limit",
+          "v": "10"
+        },
+        {
+          "k": "repository_visibility",
+          "v": "public"
+        },
+        {
+          "k": "actor_id",
+          "v": "53008976"
+        },
+        {
+          "k": "actor",
+          "v": "Yahya-Elamri"
+        },
+        {
+          "k": "workflow",
+          "v": "CI/CD via Password SSH"
+        },
+        {
+          "k": "head_ref",
+          "v": ""
+        },
+        {
+          "k": "base_ref",
+          "v": ""
+        },
+        {
+          "k": "event_name",
+          "v": "push"
+        },
+        {
+          "k": "server_url",
+          "v": "https://github.com"
+        },
+        {
+          "k": "api_url",
+          "v": "https://api.github.com"
+        },
+        {
+          "k": "graphql_url",
+          "v": "https://api.github.com/graphql"
+        },
+        {
+          "k": "ref_name",
+          "v": "main"
+        },
+        {
+          "k": "ref_protected",
+          "v": false
+        },
+        {
+          "k": "ref_type",
+          "v": "branch"
+        },
+        {
+          "k": "secret_source",
+          "v": "Actions"
+        },
+        {
+          "k": "event",
+          "v": {
+            "t": 2,
+            "d": [
+              {
+                "k": "after",
+                "v": "fac36cb5fa32cf302868d20c5c7fc3ee6f2a381a"
+              },
+              {
+                "k": "base_ref",
+                "v": null
+              },
+              {
+                "k": "before",
+                "v": "0e238cad244af340f230826839268453d3564d1c"
+              },
+              {
+                "k": "commits",
+                "v": {
+                  "t": 1,
+                  "a": [
+                    {
+                      "t": 2,
+                      "d": [
+                        {
+                          "k": "author",
+                          "v": {
+                            "t": 2,
+                            "d": [
+                              {
+                                "k": "email",
+                                "v": "yahya.elamri004@gmail.com"
+                              },
+                              {
+                                "k": "name",
+                                "v": "Yahya Elamri"
+                              },
+                              {
+                                "k": "username",
+                                "v": "Yahya-Elamri"
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "k": "committer",
+                          "v": {
+                            "t": 2,
+                            "d": [
+                              {
+                                "k": "email",
+                                "v": "noreply@github.com"
+                              },
+                              {
+                                "k": "name",
+                                "v": "GitHub"
+                              },
+                              {
+                                "k": "username",
+                                "v": "web-flow"
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "k": "distinct",
+                          "v": true
+                        },
+                        {
+                          "k": "id",
+                          "v": "fac36cb5fa32cf302868d20c5c7fc3ee6f2a381a"
+                        },
+                        {
+                          "k": "message",
+                          "v": "Update deploy.yml"
+                        },
+                        {
+                          "k": "timestamp",
+                          "v": "2025-06-12T18:30:52+01:00"
+                        },
+                        {
+                          "k": "tree_id",
+                          "v": "58d1b7eb4fa50de528b77259e11cedae238a21e3"
+                        },
+                        {
+                          "k": "url",
+                          "v": "https://github.com/Yahya-Elamri/gestion-des-salles-de-tp/commit/fac36cb5fa32cf302868d20c5c7fc3ee6f2a381a"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "k": "compare",
+                "v": "https://github.com/Yahya-Elamri/gestion-des-salles-de-tp/compare/0e238cad244a...fac36cb5fa32"
+              },
+              {
+                "k": "created",
+                "v": false
+              },
+              {
+                "k": "deleted",
+                "v": false
+              },
+              {
+                "k": "forced",
+                "v": false
+              },
+              {
+                "k": "head_commit",
+                "v": {
+                  "t": 2,
+                  "d": [
+                    {
+                      "k": "author",
+                      "v": {
+                        "t": 2,
+                        "d": [
+                          {
+                            "k": "email",
+                            "v": "yahya.elamri004@gmail.com"
+                          },
+                          {
+                            "k": "name",
+                            "v": "Yahya Elamri"
+                          },
+                          {
+                            "k": "username",
+                            "v": "Yahya-Elamri"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "k": "committer",
+                      "v": {
+                        "t": 2,
+                        "d": [
+                          {
+                            "k": "email",
+                            "v": "noreply@github.com"
+                          },
+                          {
+                            "k": "name",
+                            "v": "GitHub"
+                          },
+                          {
+                            "k": "username",
+                            "v": "web-flow"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "k": "distinct",
+                      "v": true
+                    },
+                    {
+                      "k": "id",
+                      "v": "fac36cb5fa32cf302868d20c5c7fc3ee6f2a381a"
+                    },
+                    {
+                      "k": "message",
+                      "v": "Update deploy.yml"
+                    },
+                    {
+                      "k": "timestamp",
+                      "v": "2025-06-12T18:30:52+01:00"
+                    },
+                    {
+                      "k": "tree_id",
+                      "v": "58d1b7eb4fa50de528b77259e11cedae238a21e3"
+                    },
+                    {
+                      "k": "url",
+                      "v": "https://github.com/Yahya-Elamri/gestion-des-salles-de-tp/commit/fac36cb5fa32cf302868d20c5c7fc3ee6f2a381a"
+                    }
+                  ]
+                }
+              },
+              {
+                "k": "pusher",
+                "v": {
+                  "t": 2,
+                  "d": [
+                    {
+                      "k": "email",
+                      "v": "yahya.elamri004@gmail.com"
+                    },
+                    {
+                      "k": "name",
+                      "v": "Yahya-Elamri"
+                    }
+                  ]
+                }
+              },
+              {
+                "k": "ref",
+                "v": "refs/heads/main"
+              },
+              {
+                "k": "repository",
+                "v": {
+                  "t": 2,
+                  "d": [
+                    {
+                      "k": "allow_forking",
+                      "v": true
+                    },
+                    {
+                      "k": "archive_url",
+                      "v": "https://api.github.com/repos/Yahya-Elamri/gestion-des-salles-de-tp/{archive_format}{/ref}"
+                    },
+                    {
+                      "k": "archived",
+                      "v": false
+                    },
+                    {
+                      "k": "assignees_url",
+                      "v": "https://api.github.com/repos/Yahya-Elamri/gestion-des-salles-de-tp/assignees{/user}"
+                    },
+                    {
+                      "k": "blobs_url",
+                      "v": "https://api.github.com/repos/Yahya-Elamri/gestion-des-salles-de-tp/git/blobs{/sha}"
+                    },
+                    {
+                      "k": "branches_url",
+                      "v": "https://api.github.com/repos/Yahya-Elamri/gestion-des-salles-de-tp/branches{/branch}"
+                    },
+                    {
+                      "k": "clone_url",
+                      "v": "https://github.com/Yahya-Elamri/gestion-des-salles-de-tp.git"
+                    },
+                    {
+                      "k": "collaborators_url",
+                      "v": "https://api.github.com/repos/Yahya-Elamri/gestion-des-salles-de-tp/collaborators{/collaborator}"
+                    },
+                    {
+                      "k": "comments_url",
+                      "v": "https://api.github.com/repos/Yahya-Elamri/gestion-des-salles-de-tp/comments{/number}"
+                    },
+                    {
+                      "k": "commits_url",
+                      "v": "https://api.github.com/repos/Yahya-Elamri/gestion-des-salles-de-tp/commits{/sha}"
+                    },
+                    {
+                      "k": "compare_url",
+                      "v": "https://api.github.com/repos/Yahya-Elamri/gestion-des-salles-de-tp/compare/{base}...{head}"
+                    },
+                    {
+                      "k": "contents_url",
+                      "v": "https://api.github.com/repos/Yahya-Elamri/gestion-des-salles-de-tp/contents/{+path}"
+                    },
+                    {
+                      "k": "contributors_url",
+                      "v": "https://api.github.com/repos/Yahya-Elamri/gestion-des-salles-de-tp/contributors"
+                    },
+                    {
+                      "k": "created_at",
+                      "v": 1744556590.0
+                    },
+                    {
+                      "k": "default_branch",
+                      "v": "main"
+                    },
+                    {
+                      "k": "deployments_url",
+                      "v": "https://api.github.com/repos/Yahya-Elamri/gestion-des-salles-de-tp/deployments"
+                    },
+                    {
+                      "k": "description",
+                      "v": "Ce projet est une application web qui simplifie la planification et la réservation des salles de TP en physique, offrant une gestion efficace des ressources pédagogiques avec une interface intuitive et un déploiement facilité via Docker."
+                    },
+                    {
+                      "k": "disabled",
+                      "v": false
+                    },
+                    {
+                      "k": "downloads_url",
+                      "v": "https://api.github.com/repos/Yahya-Elamri/gestion-des-salles-de-tp/downloads"
+                    },
+                    {
+                      "k": "events_url",
+                      "v": "https://api.github.com/repos/Yahya-Elamri/gestion-des-salles-de-tp/events"
+                    },
+                    {
+                      "k": "fork",
+                      "v": false
+                    },
+                    {
+                      "k": "forks",
+                      "v": 0.0
+                    },
+                    {
+                      "k": "forks_count",
+                      "v": 0.0
+                    },
+                    {
+                      "k": "forks_url",
+                      "v": "https://api.github.com/repos/Yahya-Elamri/gestion-des-salles-de-tp/forks"
+                    },
+                    {
+                      "k": "full_name",
+                      "v": "Yahya-Elamri/gestion-des-salles-de-tp"
+                    },
+                    {
+                      "k": "git_commits_url",
+                      "v": "https://api.github.com/repos/Yahya-Elamri/gestion-des-salles-de-tp/git/commits{/sha}"
+                    },
+                    {
+                      "k": "git_refs_url",
+                      "v": "https://api.github.com/repos/Yahya-Elamri/gestion-des-salles-de-tp/git/refs{/sha}"
+                    },
+                    {
+                      "k": "git_tags_url",
+                      "v": "https://api.github.com/repos/Yahya-Elamri/gestion-des-salles-de-tp/git/tags{/sha}"
+                    },
+                    {
+                      "k": "git_url",
+                      "v": "git://github.com/Yahya-Elamri/gestion-des-salles-de-tp.git"
+                    },
+                    {
+                      "k": "has_discussions",
+                      "v": false
+                    },
+                    {
+                      "k": "has_downloads",
+                      "v": true
+                    },
+                    {
+                      "k": "has_issues",
+                      "v": true
+                    },
+                    {
+                      "k": "has_pages",
+                      "v": false
+                    },
+                    {
+                      "k": "has_projects",
+                      "v": true
+                    },
+                    {
+                      "k": "has_wiki",
+                      "v": true
+                    },
+                    {
+                      "k": "homepage",
+                      "v": ""
+                    },
+                    {
+                      "k": "hooks_url",
+                      "v": "https://api.github.com/repos/Yahya-Elamri/gestion-des-salles-de-tp/hooks"
+                    },
+                    {
+                      "k": "html_url",
+                      "v": "https://github.com/Yahya-Elamri/gestion-des-salles-de-tp"
+                    },
+                    {
+                      "k": "id",
+                      "v": 965618947.0
+                    },
+                    {
+                      "k": "is_template",
+                      "v": false
+                    },
+                    {
+                      "k": "issue_comment_url",
+                      "v": "https://api.github.com/repos/Yahya-Elamri/gestion-des-salles-de-tp/issues/comments{/number}"
+                    },
+                    {
+                      "k": "issue_events_url",
+                      "v": "https://api.github.com/repos/Yahya-Elamri/gestion-des-salles-de-tp/issues/events{/number}"
+                    },
+                    {
+                      "k": "issues_url",
+                      "v": "https://api.github.com/repos/Yahya-Elamri/gestion-des-salles-de-tp/issues{/number}"
+                    },
+                    {
+                      "k": "keys_url",
+                      "v": "https://api.github.com/repos/Yahya-Elamri/gestion-des-salles-de-tp/keys{/key_id}"
+                    },
+                    {
+                      "k": "labels_url",
+                      "v": "https://api.github.com/repos/Yahya-Elamri/gestion-des-salles-de-tp/labels{/name}"
+                    },
+                    {
+                      "k": "language",
+                      "v": "TypeScript"
+                    },
+                    {
+                      "k": "languages_url",
+                      "v": "https://api.github.com/repos/Yahya-Elamri/gestion-des-salles-de-tp/languages"
+                    },
+                    {
+                      "k": "license",
+                      "v": {
+                        "t": 2,
+                        "d": [
+                          {
+                            "k": "key",
+                            "v": "unlicense"
+                          },
+                          {
+                            "k": "name",
+                            "v": "The Unlicense"
+                          },
+                          {
+                            "k": "node_id",
+                            "v": "MDc6TGljZW5zZTE1"
+                          },
+                          {
+                            "k": "spdx_id",
+                            "v": "Unlicense"
+                          },
+                          {
+                            "k": "url",
+                            "v": "https://api.github.com/licenses/unlicense"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "k": "master_branch",
+                      "v": "main"
+                    },
+                    {
+                      "k": "merges_url",
+                      "v": "https://api.github.com/repos/Yahya-Elamri/gestion-des-salles-de-tp/merges"
+                    },
+                    {
+                      "k": "milestones_url",
+                      "v": "https://api.github.com/repos/Yahya-Elamri/gestion-des-salles-de-tp/milestones{/number}"
+                    },
+                    {
+                      "k": "mirror_url",
+                      "v": null
+                    },
+                    {
+                      "k": "name",
+                      "v": "gestion-des-salles-de-tp"
+                    },
+                    {
+                      "k": "node_id",
+                      "v": "R_kgDOOY4tAw"
+                    },
+                    {
+                      "k": "notifications_url",
+                      "v": "https://api.github.com/repos/Yahya-Elamri/gestion-des-salles-de-tp/notifications{?since,all,participating}"
+                    },
+                    {
+                      "k": "open_issues",
+                      "v": 0.0
+                    },
+                    {
+                      "k": "open_issues_count",
+                      "v": 0.0
+                    },
+                    {
+                      "k": "owner",
+                      "v": {
+                        "t": 2,
+                        "d": [
+                          {
+                            "k": "avatar_url",
+                            "v": "https://avatars.githubusercontent.com/u/53008976?v=4"
+                          },
+                          {
+                            "k": "email",
+                            "v": "yahya.elamri004@gmail.com"
+                          },
+                          {
+                            "k": "events_url",
+                            "v": "https://api.github.com/users/Yahya-Elamri/events{/privacy}"
+                          },
+                          {
+                            "k": "followers_url",
+                            "v": "https://api.github.com/users/Yahya-Elamri/followers"
+                          },
+                          {
+                            "k": "following_url",
+                            "v": "https://api.github.com/users/Yahya-Elamri/following{/other_user}"
+                          },
+                          {
+                            "k": "gists_url",
+                            "v": "https://api.github.com/users/Yahya-Elamri/gists{/gist_id}"
+                          },
+                          {
+                            "k": "gravatar_id",
+                            "v": ""
+                          },
+                          {
+                            "k": "html_url",
+                            "v": "https://github.com/Yahya-Elamri"
+                          },
+                          {
+                            "k": "id",
+                            "v": 53008976.0
+                          },
+                          {
+                            "k": "login",
+                            "v": "Yahya-Elamri"
+                          },
+                          {
+                            "k": "name",
+                            "v": "Yahya-Elamri"
+                          },
+                          {
+                            "k": "node_id",
+                            "v": "MDQ6VXNlcjUzMDA4OTc2"
+                          },
+                          {
+                            "k": "organizations_url",
+                            "v": "https://api.github.com/users/Yahya-Elamri/orgs"
+                          },
+                          {
+                            "k": "received_events_url",
+                            "v": "https://api.github.com/users/Yahya-Elamri/received_events"
+                          },
+                          {
+                            "k": "repos_url",
+                            "v": "https://api.github.com/users/Yahya-Elamri/repos"
+                          },
+                          {
+                            "k": "site_admin",
+                            "v": false
+                          },
+                          {
+                            "k": "starred_url",
+                            "v": "https://api.github.com/users/Yahya-Elamri/starred{/owner}{/repo}"
+                          },
+                          {
+                            "k": "subscriptions_url",
+                            "v": "https://api.github.com/users/Yahya-Elamri/subscriptions"
+                          },
+                          {
+                            "k": "type",
+                            "v": "User"
+                          },
+                          {
+                            "k": "url",
+                            "v": "https://api.github.com/users/Yahya-Elamri"
+                          },
+                          {
+                            "k": "user_view_type",
+                            "v": "public"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "k": "private",
+                      "v": false
+                    },
+                    {
+                      "k": "pulls_url",
+                      "v": "https://api.github.com/repos/Yahya-Elamri/gestion-des-salles-de-tp/pulls{/number}"
+                    },
+                    {
+                      "k": "pushed_at",
+                      "v": 1749749453.0
+                    },
+                    {
+                      "k": "releases_url",
+                      "v": "https://api.github.com/repos/Yahya-Elamri/gestion-des-salles-de-tp/releases{/id}"
+                    },
+                    {
+                      "k": "size",
+                      "v": 360.0
+                    },
+                    {
+                      "k": "ssh_url",
+                      "v": "git@github.com:Yahya-Elamri/gestion-des-salles-de-tp.git"
+                    },
+                    {
+                      "k": "stargazers",
+                      "v": 1.0
+                    },
+                    {
+                      "k": "stargazers_count",
+                      "v": 1.0
+                    },
+                    {
+                      "k": "stargazers_url",
+                      "v": "https://api.github.com/repos/Yahya-Elamri/gestion-des-salles-de-tp/stargazers"
+                    },
+                    {
+                      "k": "statuses_url",
+                      "v": "https://api.github.com/repos/Yahya-Elamri/gestion-des-salles-de-tp/statuses/{sha}"
+                    },
+                    {
+                      "k": "subscribers_url",
+                      "v": "https://api.github.com/repos/Yahya-Elamri/gestion-des-salles-de-tp/subscribers"
+                    },
+                    {
+                      "k": "subscription_url",
+                      "v": "https://api.github.com/repos/Yahya-Elamri/gestion-des-salles-de-tp/subscription"
+                    },
+                    {
+                      "k": "svn_url",
+                      "v": "https://github.com/Yahya-Elamri/gestion-des-salles-de-tp"
+                    },
+                    {
+                      "k": "tags_url",
+                      "v": "https://api.github.com/repos/Yahya-Elamri/gestion-des-salles-de-tp/tags"
+                    },
+                    {
+                      "k": "teams_url",
+                      "v": "https://api.github.com/repos/Yahya-Elamri/gestion-des-salles-de-tp/teams"
+                    },
+                    {
+                      "k": "topics",
+                      "v": {
+                        "t": 1,
+                        "a": [
+                          "docker",
+                          "gestion",
+                          "java",
+                          "jwt",
+                          "jwt-authentication",
+                          "microservice",
+                          "microservices",
+                          "react",
+                          "reactjs",
+                          "spring-boot"
+                        ]
+                      }
+                    },
+                    {
+                      "k": "trees_url",
+                      "v": "https://api.github.com/repos/Yahya-Elamri/gestion-des-salles-de-tp/git/trees{/sha}"
+                    },
+                    {
+                      "k": "updated_at",
+                      "v": "2025-06-12T17:28:33Z"
+                    },
+                    {
+                      "k": "url",
+                      "v": "https://api.github.com/repos/Yahya-Elamri/gestion-des-salles-de-tp"
+                    },
+                    {
+                      "k": "visibility",
+                      "v": "public"
+                    },
+                    {
+                      "k": "watchers",
+                      "v": 1.0
+                    },
+                    {
+                      "k": "watchers_count",
+                      "v": 1.0
+                    },
+                    {
+                      "k": "web_commit_signoff_required",
+                      "v": false
+                    }
+                  ]
+                }
+              },
+              {
+                "k": "sender",
+                "v": {
+                  "t": 2,
+                  "d": [
+                    {
+                      "k": "avatar_url",
+                      "v": "https://avatars.githubusercontent.com/u/53008976?v=4"
+                    },
+                    {
+                      "k": "events_url",
+                      "v": "https://api.github.com/users/Yahya-Elamri/events{/privacy}"
+                    },
+                    {
+                      "k": "followers_url",
+                      "v": "https://api.github.com/users/Yahya-Elamri/followers"
+                    },
+                    {
+                      "k": "following_url",
+                      "v": "https://api.github.com/users/Yahya-Elamri/following{/other_user}"
+                    },
+                    {
+                      "k": "gists_url",
+                      "v": "https://api.github.com/users/Yahya-Elamri/gists{/gist_id}"
+                    },
+                    {
+                      "k": "gravatar_id",
+                      "v": ""
+                    },
+                    {
+                      "k": "html_url",
+                      "v": "https://github.com/Yahya-Elamri"
+                    },
+                    {
+                      "k": "id",
+                      "v": 53008976.0
+                    },
+                    {
+                      "k": "login",
+                      "v": "Yahya-Elamri"
+                    },
+                    {
+                      "k": "node_id",
+                      "v": "MDQ6VXNlcjUzMDA4OTc2"
+                    },
+                    {
+                      "k": "organizations_url",
+                      "v": "https://api.github.com/users/Yahya-Elamri/orgs"
+                    },
+                    {
+                      "k": "received_events_url",
+                      "v": "https://api.github.com/users/Yahya-Elamri/received_events"
+                    },
+                    {
+                      "k": "repos_url",
+                      "v": "https://api.github.com/users/Yahya-Elamri/repos"
+                    },
+                    {
+                      "k": "site_admin",
+                      "v": false
+                    },
+                    {
+                      "k": "starred_url",
+                      "v": "https://api.github.com/users/Yahya-Elamri/starred{/owner}{/repo}"
+                    },
+                    {
+                      "k": "subscriptions_url",
+                      "v": "https://api.github.com/users/Yahya-Elamri/subscriptions"
+                    },
+                    {
+                      "k": "type",
+                      "v": "User"
+                    },
+                    {
+                      "k": "url",
+                      "v": "https://api.github.com/users/Yahya-Elamri"
+                    },
+                    {
+                      "k": "user_view_type",
+                      "v": "public"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "k": "workflow_ref",
+          "v": "Yahya-Elamri/gestion-des-salles-de-tp/.github/workflows/deploy.yml@refs/heads/main"
+        },
+        {
+          "k": "workflow_sha",
+          "v": "fac36cb5fa32cf302868d20c5c7fc3ee6f2a381a"
+        },
+        {
+          "k": "repository_id",
+          "v": "965618947"
+        },
+        {
+          "k": "triggering_actor",
+          "v": "Yahya-Elamri"
+        }
+      ]
+    },
+    "inputs": {
+      "t": 2
+    },
+    "matrix": null,
+    "needs": {
+      "t": 2
+    },
+    "strategy": {
+      "t": 2,
+      "d": [
+        {
+          "k": "fail-fast",
+          "v": true
+        },
+        {
+          "k": "job-index",
+          "v": 0.0
+        },
+        {
+          "k": "job-total",
+          "v": 1.0
+        },
+        {
+          "k": "max-parallel",
+          "v": 1.0
+        }
+      ]
+    },
+    "vars": {
+      "t": 2
+    }
+  },
+  "billingOwnerId": "U_kgDOAyjaUA"
+}
+[2025-06-12 17:31:04Z INFO JobRunner] Job ID 54f9b4cf-9b7c-5a04-8591-b03cdc1a0810
+[2025-06-12 17:31:04Z INFO ConfigurationStore] currentAssemblyLocation: /Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/bin/Runner.Worker.dll
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Bin': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/bin'
+[2025-06-12 17:31:04Z INFO ConfigurationStore] binPath: /Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/bin
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Bin': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/bin'
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Root': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:04Z INFO ConfigurationStore] RootFolder: /Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Bin': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/bin'
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Root': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:04Z INFO HostContext] Well known config file 'Runner': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/.runner'
+[2025-06-12 17:31:04Z INFO ConfigurationStore] ConfigFilePath: /Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/.runner
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Bin': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/bin'
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Root': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:04Z INFO HostContext] Well known config file 'MigratedRunner': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/.runner_migrated'
+[2025-06-12 17:31:04Z INFO ConfigurationStore] MigratedConfigFilePath: /Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/.runner_migrated
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Bin': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/bin'
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Root': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:04Z INFO HostContext] Well known config file 'Credentials': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/.credentials'
+[2025-06-12 17:31:04Z INFO ConfigurationStore] CredFilePath: /Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/.credentials
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Bin': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/bin'
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Root': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:04Z INFO HostContext] Well known config file 'MigratedCredentials': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/.credentials_migrated'
+[2025-06-12 17:31:04Z INFO ConfigurationStore] MigratedCredFilePath: /Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/.credentials_migrated
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Bin': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/bin'
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Root': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:04Z INFO HostContext] Well known config file 'Service': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/.service'
+[2025-06-12 17:31:04Z INFO ConfigurationStore] ServiceConfigFilePath: /Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/.service
+[2025-06-12 17:31:04Z INFO ConfigurationStore] Read setting file: 394 chars
+[2025-06-12 17:31:04Z INFO JobRunner] Initializing launch client
+[2025-06-12 17:31:04Z INFO JobServerQueue] Initializing results client
+[2025-06-12 17:31:04Z INFO ResultServer] Creating websocket client ...wss://results-receiver.actions.githubusercontent.com/_ws/ingest.sock
+[2025-06-12 17:31:04Z INFO ResultServer] Attempting to start websocket client with delay 00:00:00.
+[2025-06-12 17:31:04Z INFO JobServerQueue] Start process web console line queue.
+[2025-06-12 17:31:04Z INFO JobServerQueue] Start process file upload queue.
+[2025-06-12 17:31:04Z INFO JobServerQueue] Start results file upload queue.
+[2025-06-12 17:31:04Z INFO JobServerQueue] Starting results-based upload queue...
+[2025-06-12 17:31:04Z INFO JobServerQueue] Start process timeline update queue.
+[2025-06-12 17:31:04Z INFO ExecutionContext] Initializing Job context
+[2025-06-12 17:31:04Z INFO ExecutionContext] Initialize GitHub context
+[2025-06-12 17:31:04Z INFO ExecutionContext] Initialize Env context
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Bin': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/bin'
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Root': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Diag': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_diag'
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Bin': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/bin'
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Root': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Diag': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_diag'
+[2025-06-12 17:31:04Z INFO JobRunner] Starting the job execution context.
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Bin': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/bin'
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Root': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Work': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_work'
+[2025-06-12 17:31:04Z INFO JobRunner] Validating directory permissions for: '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_work'
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Bin': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/bin'
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Root': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Work': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_work'
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Tools': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_work/_tool'
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Bin': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/bin'
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Root': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Work': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_work'
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Temp': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_work/_temp'
+[2025-06-12 17:31:04Z INFO JobRunner] Getting job extension.
+[2025-06-12 17:31:04Z INFO JobRunner] Initialize job. Getting all job steps.
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Bin': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/bin'
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Root': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Diag': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_diag'
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Bin': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/bin'
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Root': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Diag': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_diag'
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Bin': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/bin'
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Root': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:04Z INFO HostContext] Well known config file 'Credentials': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/.credentials'
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Bin': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/bin'
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Root': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:04Z INFO HostContext] Well known config file 'SetupInfo': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/.setup_info'
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Bin': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/bin'
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Root': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Work': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_work'
+[2025-06-12 17:31:04Z INFO PipelineDirectoryManager] Loading tracking config if exists: /Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_work/_PipelineMapping/Yahya-Elamri/gestion-des-salles-de-tp/PipelineFolder.json
+[2025-06-12 17:31:04Z INFO PipelineDirectoryManager] Updating job run properties.
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Bin': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/bin'
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Root': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Work': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_work'
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Bin': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/bin'
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Root': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Work': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_work'
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Bin': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/bin'
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Root': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Work': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_work'
+[2025-06-12 17:31:04Z INFO JobExtension] Downloading actions
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Bin': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/bin'
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Root': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Work': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_work'
+[2025-06-12 17:31:04Z INFO HostContext] Well known directory 'Actions': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_work/_actions'
+[2025-06-12 17:31:04Z INFO Worker] Listening for cancel message from the channel.
+[2025-06-12 17:31:04Z INFO Worker] Waiting for the job to complete or for a cancel message from the channel.
+[2025-06-12 17:31:05Z INFO ResultServer] Successfully started websocket client.
+[2025-06-12 17:31:05Z INFO JobServerQueue] Try to append 1 batches web console lines for record 'ac6047d1-0418-4530-ad61-55514fc2a90f', success rate: 1/1.
+[2025-06-12 17:31:05Z INFO HostContext] Well known directory 'Bin': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/bin'
+[2025-06-12 17:31:05Z INFO HostContext] Well known directory 'Root': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:05Z INFO HostContext] Well known directory 'Work': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_work'
+[2025-06-12 17:31:05Z INFO HostContext] Well known directory 'Actions': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_work/_actions'
+[2025-06-12 17:31:05Z INFO HostContext] Well known directory 'Bin': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/bin'
+[2025-06-12 17:31:05Z INFO HostContext] Well known directory 'Root': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:05Z INFO HostContext] Well known directory 'Work': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_work'
+[2025-06-12 17:31:05Z INFO HostContext] Well known directory 'Actions': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_work/_actions'
+[2025-06-12 17:31:05Z INFO ActionManager] Save archive 'https://api.github.com/repos/actions/checkout/tarball/f43a0e5ff2bd294095638e18286ca9a3d1956744' into /Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_work/_actions/_temp_2743d98f-ee7d-45f8-b32a-1e66fc0be5df/aad65533-e20e-4fb5-b2f9-e5e6e67127e9.tar.gz.
+[2025-06-12 17:31:05Z INFO JobServerQueue] Try to append 1 batches web console lines for record 'ac6047d1-0418-4530-ad61-55514fc2a90f', success rate: 1/1.
+[2025-06-12 17:31:05Z INFO JobServerQueue] Job timeline record has been updated for the first time.
+[2025-06-12 17:31:06Z INFO ActionManager] Request URL: https://api.github.com/repos/actions/checkout/tarball/f43a0e5ff2bd294095638e18286ca9a3d1956744 X-GitHub-Request-Id: CF95:2B20FD:19050B:1CAEB0:684B0EDA Http Status: OK
+[2025-06-12 17:31:06Z INFO ActionManager] Which2: 'tar'
+[2025-06-12 17:31:06Z INFO ActionManager] Location: '/usr/bin/tar'
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper] Starting process:
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper]   File name: '/usr/bin/tar'
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper]   Arguments: '-xzf "/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_work/_actions/_temp_2743d98f-ee7d-45f8-b32a-1e66fc0be5df/aad65533-e20e-4fb5-b2f9-e5e6e67127e9.tar.gz"'
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper]   Working directory: '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_work/_actions/_temp_2743d98f-ee7d-45f8-b32a-1e66fc0be5df/_staging'
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper]   Require exit code zero: 'False'
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper]   Encoding web name:  ; code page: ''
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper]   Force kill process on cancellation: 'False'
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper]   Redirected STDIN: 'False'
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper]   Persist current code page: 'False'
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper]   Keep redirected STDIN open: 'False'
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper]   High priority process: 'False'
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper] Process started with process id 85925, waiting for process exit.
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper] Finished process 85925 with exit code 0, and elapsed time 00:00:00.0375095.
+[2025-06-12 17:31:06Z INFO ActionManager] Finished getting action repository.
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Bin': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/bin'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Root': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Work': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_work'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Actions': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_work/_actions'
+[2025-06-12 17:31:06Z INFO ActionManifestManager] Load schema file with definitions: [
+  "null",
+  "boolean",
+  "number",
+  "string",
+  "sequence",
+  "mapping",
+  "any",
+  "action-root",
+  "inputs",
+  "input",
+  "outputs",
+  "output-definition",
+  "runs",
+  "container-runs",
+  "container-runs-args",
+  "container-runs-env",
+  "node-runs",
+  "plugin-runs",
+  "composite-runs",
+  "composite-steps",
+  "composite-step",
+  "run-step",
+  "uses-step",
+  "container-runs-context",
+  "output-value",
+  "input-default-context",
+  "non-empty-string",
+  "string-steps-context",
+  "boolean-steps-context",
+  "step-env",
+  "step-if",
+  "step-with"
+]
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Bin': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/bin'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Root': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Work': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_work'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Actions': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_work/_actions'
+[2025-06-12 17:31:06Z INFO ActionManifestManager] Loaded action.yml file: {
+  "name": "Checkout",
+  "description": "Checkout a Git repository at a particular version",
+  "inputs": {
+    "type": 2,
+    "map": [
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 4,
+          "col": 3,
+          "lit": "repository"
+        },
+        "value": {
+          "type": 3,
+          "file": 2,
+          "line": 6,
+          "col": 14,
+          "expr": "github.repository"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 7,
+          "col": 3,
+          "lit": "ref"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 12,
+          "col": 3,
+          "lit": "token"
+        },
+        "value": {
+          "type": 3,
+          "file": 2,
+          "line": 24,
+          "col": 14,
+          "expr": "github.token"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 25,
+          "col": 3,
+          "lit": "ssh-key"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 37,
+          "col": 3,
+          "lit": "ssh-known-hosts"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 42,
+          "col": 3,
+          "lit": "ssh-strict"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 47,
+          "col": 14,
+          "lit": "true"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 48,
+          "col": 3,
+          "lit": "persist-credentials"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 50,
+          "col": 14,
+          "lit": "true"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 51,
+          "col": 3,
+          "lit": "path"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 53,
+          "col": 3,
+          "lit": "clean"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 55,
+          "col": 14,
+          "lit": "true"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 56,
+          "col": 3,
+          "lit": "sparse-checkout"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 60,
+          "col": 14,
+          "lit": ""
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 61,
+          "col": 3,
+          "lit": "sparse-checkout-cone-mode"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 64,
+          "col": 14,
+          "lit": "true"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 65,
+          "col": 3,
+          "lit": "fetch-depth"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 67,
+          "col": 14,
+          "lit": "1"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 68,
+          "col": 3,
+          "lit": "fetch-tags"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 70,
+          "col": 14,
+          "lit": "false"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 71,
+          "col": 3,
+          "lit": "lfs"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 73,
+          "col": 14,
+          "lit": "false"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 74,
+          "col": 3,
+          "lit": "submodules"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 82,
+          "col": 14,
+          "lit": "false"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 83,
+          "col": 3,
+          "lit": "set-safe-directory"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 85,
+          "col": 14,
+          "lit": "true"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 86,
+          "col": 3,
+          "lit": "github-server-url"
+        },
+        "value": ""
+      }
+    ]
+  },
+  "execution": {
+    "executionType": "nodeJS",
+    "hasPre": false,
+    "hasPost": true,
+    "script": "dist/index.js",
+    "pre": null,
+    "post": "dist/index.js",
+    "nodeVersion": "node16",
+    "cleanupCondition": "always()",
+    "initCondition": "always()"
+  },
+  "deprecated": null
+}
+[2025-06-12 17:31:06Z INFO ActionManager] Action node.js file: dist/index.js, no more preparation.
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Bin': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/bin'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Root': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Work': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_work'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Actions': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_work/_actions'
+[2025-06-12 17:31:06Z INFO ActionManager] Load action that reference repository from '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_work/_actions/actions/checkout/v3'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Bin': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/bin'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Root': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Work': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_work'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Actions': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_work/_actions'
+[2025-06-12 17:31:06Z INFO ActionManifestManager] Loaded action.yml file: {
+  "name": "Checkout",
+  "description": "Checkout a Git repository at a particular version",
+  "inputs": {
+    "type": 2,
+    "map": [
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 4,
+          "col": 3,
+          "lit": "repository"
+        },
+        "value": {
+          "type": 3,
+          "file": 2,
+          "line": 6,
+          "col": 14,
+          "expr": "github.repository"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 7,
+          "col": 3,
+          "lit": "ref"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 12,
+          "col": 3,
+          "lit": "token"
+        },
+        "value": {
+          "type": 3,
+          "file": 2,
+          "line": 24,
+          "col": 14,
+          "expr": "github.token"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 25,
+          "col": 3,
+          "lit": "ssh-key"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 37,
+          "col": 3,
+          "lit": "ssh-known-hosts"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 42,
+          "col": 3,
+          "lit": "ssh-strict"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 47,
+          "col": 14,
+          "lit": "true"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 48,
+          "col": 3,
+          "lit": "persist-credentials"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 50,
+          "col": 14,
+          "lit": "true"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 51,
+          "col": 3,
+          "lit": "path"
+        },
+        "value": ""
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 53,
+          "col": 3,
+          "lit": "clean"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 55,
+          "col": 14,
+          "lit": "true"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 56,
+          "col": 3,
+          "lit": "sparse-checkout"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 60,
+          "col": 14,
+          "lit": ""
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 61,
+          "col": 3,
+          "lit": "sparse-checkout-cone-mode"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 64,
+          "col": 14,
+          "lit": "true"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 65,
+          "col": 3,
+          "lit": "fetch-depth"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 67,
+          "col": 14,
+          "lit": "1"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 68,
+          "col": 3,
+          "lit": "fetch-tags"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 70,
+          "col": 14,
+          "lit": "false"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 71,
+          "col": 3,
+          "lit": "lfs"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 73,
+          "col": 14,
+          "lit": "false"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 74,
+          "col": 3,
+          "lit": "submodules"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 82,
+          "col": 14,
+          "lit": "false"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 83,
+          "col": 3,
+          "lit": "set-safe-directory"
+        },
+        "value": {
+          "type": 0,
+          "file": 2,
+          "line": 85,
+          "col": 14,
+          "lit": "true"
+        }
+      },
+      {
+        "key": {
+          "type": 0,
+          "file": 2,
+          "line": 86,
+          "col": 3,
+          "lit": "github-server-url"
+        },
+        "value": ""
+      }
+    ]
+  },
+  "execution": {
+    "executionType": "nodeJS",
+    "hasPre": false,
+    "hasPost": true,
+    "script": "dist/index.js",
+    "pre": null,
+    "post": "dist/index.js",
+    "nodeVersion": "node16",
+    "cleanupCondition": "always()",
+    "initCondition": "always()"
+  },
+  "deprecated": null
+}
+[2025-06-12 17:31:06Z INFO ActionManager] Action pre node.js file: N/A.
+[2025-06-12 17:31:06Z INFO ActionManager] Action node.js file: dist/index.js.
+[2025-06-12 17:31:06Z INFO ActionManager] Action post node.js file: dist/index.js.
+[2025-06-12 17:31:06Z INFO JobExtension] Adding .
+[2025-06-12 17:31:06Z INFO JobExtension] Adding .
+[2025-06-12 17:31:06Z INFO JobExtension] Adding .
+[2025-06-12 17:31:06Z INFO JobExtension] Adding .
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Bin': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/bin'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Root': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Diag': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_diag'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Bin': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/bin'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Root': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Diag': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_diag'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Bin': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/bin'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Root': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Diag': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_diag'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Bin': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/bin'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Root': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Diag': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_diag'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Bin': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/bin'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Root': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Diag': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_diag'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Bin': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/bin'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Root': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Diag': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_diag'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Bin': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/bin'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Root': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Diag': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_diag'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Bin': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/bin'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Root': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Diag': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_diag'
+[2025-06-12 17:31:06Z INFO JobExtension] Total accessible running process: 443.
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Bin': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/bin'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Root': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Work': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_work'
+[2025-06-12 17:31:06Z INFO JobExtension] Start checking service connectivity in background.
+[2025-06-12 17:31:06Z INFO ExecutionContext] Publish step telemetry for current step {
+  "action": "setup_job",
+  "type": "runner",
+  "stage": "Pre",
+  "stepId": "ac6047d1-0418-4530-ad61-55514fc2a90f",
+  "result": "succeeded",
+  "errorMessages": [],
+  "executionTimeInSeconds": 3,
+  "startTime": "2025-06-12T17:31:04.72215Z",
+  "finishTime": "2025-06-12T17:31:06.894444Z"
+}.
+[2025-06-12 17:31:06Z INFO JobRunner] Total job steps: 4.
+[2025-06-12 17:31:06Z INFO JobRunner] Run all job steps.
+[2025-06-12 17:31:06Z INFO StepsRunner] Processing step: DisplayName='Install sshpass'
+[2025-06-12 17:31:06Z INFO StepsRunner] Evaluating: success()
+[2025-06-12 17:31:06Z INFO StepsRunner] Result: true
+[2025-06-12 17:31:06Z INFO StepsRunner] Starting the step.
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Bin': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/bin'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Root': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Work': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_work'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Temp': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_work/_temp'
+[2025-06-12 17:31:06Z INFO ExecutionContext] Write event payload to /Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_work/_temp/_github_workflow/event.json
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Bin': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/bin'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Root': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Work': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_work'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Temp': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_work/_temp'
+[2025-06-12 17:31:06Z INFO ExtensionManager] Getting extensions for interface: 'GitHub.Runner.Worker.IFileCommandExtension'
+[2025-06-12 17:31:06Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.AddPathFileCommand, Runner.Worker
+[2025-06-12 17:31:06Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.SetEnvFileCommand, Runner.Worker
+[2025-06-12 17:31:06Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.CreateStepSummaryCommand, Runner.Worker
+[2025-06-12 17:31:06Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.SaveStateFileCommand, Runner.Worker
+[2025-06-12 17:31:06Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.SetOutputFileCommand, Runner.Worker
+[2025-06-12 17:31:06Z INFO ExtensionManager] Getting extensions for interface: 'GitHub.Runner.Worker.IActionCommandExtension'
+[2025-06-12 17:31:06Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.InternalPluginSetRepoPathCommandExtension, Runner.Worker
+[2025-06-12 17:31:06Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.SetEnvCommandExtension, Runner.Worker
+[2025-06-12 17:31:06Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.SetOutputCommandExtension, Runner.Worker
+[2025-06-12 17:31:06Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.SaveStateCommandExtension, Runner.Worker
+[2025-06-12 17:31:06Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.AddPathCommandExtension, Runner.Worker
+[2025-06-12 17:31:06Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.AddMaskCommandExtension, Runner.Worker
+[2025-06-12 17:31:06Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.AddMatcherCommandExtension, Runner.Worker
+[2025-06-12 17:31:06Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.RemoveMatcherCommandExtension, Runner.Worker
+[2025-06-12 17:31:06Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.WarningCommandExtension, Runner.Worker
+[2025-06-12 17:31:06Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.ErrorCommandExtension, Runner.Worker
+[2025-06-12 17:31:06Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.NoticeCommandExtension, Runner.Worker
+[2025-06-12 17:31:06Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.DebugCommandExtension, Runner.Worker
+[2025-06-12 17:31:06Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.GroupCommandExtension, Runner.Worker
+[2025-06-12 17:31:06Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.EndGroupCommandExtension, Runner.Worker
+[2025-06-12 17:31:06Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.EchoCommandExtension, Runner.Worker
+[2025-06-12 17:31:06Z INFO ActionCommandManager] Register action command extension for command internal-set-repo-path
+[2025-06-12 17:31:06Z INFO ActionCommandManager] Register action command extension for command set-env
+[2025-06-12 17:31:06Z INFO ActionCommandManager] Register action command extension for command set-output
+[2025-06-12 17:31:06Z INFO ActionCommandManager] Register action command extension for command save-state
+[2025-06-12 17:31:06Z INFO ActionCommandManager] Register action command extension for command add-path
+[2025-06-12 17:31:06Z INFO ActionCommandManager] Register action command extension for command add-mask
+[2025-06-12 17:31:06Z INFO ActionCommandManager] Register action command extension for command add-matcher
+[2025-06-12 17:31:06Z INFO ActionCommandManager] Register action command extension for command remove-matcher
+[2025-06-12 17:31:06Z INFO ActionCommandManager] Register action command extension for command warning
+[2025-06-12 17:31:06Z INFO ActionCommandManager] Register action command extension for command error
+[2025-06-12 17:31:06Z INFO ActionCommandManager] Register action command extension for command notice
+[2025-06-12 17:31:06Z INFO ActionCommandManager] Register action command extension for command debug
+[2025-06-12 17:31:06Z INFO ActionCommandManager] Register action command extension for command group
+[2025-06-12 17:31:06Z INFO ActionCommandManager] Register action command extension for command endgroup
+[2025-06-12 17:31:06Z INFO ActionCommandManager] Register action command extension for command echo
+[2025-06-12 17:31:06Z INFO ScriptHandler] Which2: 'bash'
+[2025-06-12 17:31:06Z INFO ScriptHandler] Location: '/bin/bash'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Bin': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/bin'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Root': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Work': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_work'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Temp': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_work/_temp'
+[2025-06-12 17:31:06Z INFO ScriptHandler] Which2: 'bash'
+[2025-06-12 17:31:06Z INFO ScriptHandler] Location: '/bin/bash'
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper] Starting process:
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper]   File name: '/bin/bash'
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper]   Arguments: '-e /Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_work/_temp/cc0cd932-8e35-44eb-9657-6c230216233f.sh'
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper]   Working directory: '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_work/gestion-des-salles-de-tp/gestion-des-salles-de-tp'
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper]   Require exit code zero: 'False'
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper]   Encoding web name:  ; code page: ''
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper]   Force kill process on cancellation: 'False'
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper]   Redirected STDIN: 'False'
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper]   Persist current code page: 'False'
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper]   Keep redirected STDIN open: 'False'
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper]   High priority process: 'False'
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper] Process started with process id 85935, waiting for process exit.
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper] Finished process 85935 with exit code 127, and elapsed time 00:00:00.0182434.
+[2025-06-12 17:31:06Z INFO CreateStepSummaryCommand] Step Summary file (/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_work/_temp/_runner_file_commands/step_summary_73a83ac6-d05d-413b-bbbf-0ed09752143f) is empty; skipping attachment upload
+[2025-06-12 17:31:06Z INFO StepsRunner] Step result: Failed
+[2025-06-12 17:31:06Z INFO ExecutionContext] Publish step telemetry for current step {
+  "action": "sh",
+  "type": "run",
+  "stage": "Main",
+  "stepId": "0cbad22a-2cbf-4d78-adcd-7a2d240a07cc",
+  "stepContextName": "__run",
+  "result": "failed",
+  "errorMessages": [
+    "Process completed with exit code 127."
+  ],
+  "executionTimeInSeconds": 1,
+  "startTime": "2025-06-12T17:31:06.899629Z",
+  "finishTime": "2025-06-12T17:31:06.947845Z"
+}.
+[2025-06-12 17:31:06Z INFO StepsRunner] Update job result with current step result 'Failed'.
+[2025-06-12 17:31:06Z INFO StepsRunner] Current state: job state = 'Failed'
+[2025-06-12 17:31:06Z INFO StepsRunner] Processing step: DisplayName='Checkout Code'
+[2025-06-12 17:31:06Z INFO StepsRunner] Evaluating: success()
+[2025-06-12 17:31:06Z INFO StepsRunner] Result: false
+[2025-06-12 17:31:06Z INFO StepsRunner] Skipping step due to condition evaluation.
+[2025-06-12 17:31:06Z INFO StepsRunner] No need for updating job result with current step result 'Skipped'.
+[2025-06-12 17:31:06Z INFO StepsRunner] Current state: job state = 'Failed'
+[2025-06-12 17:31:06Z INFO StepsRunner] Processing step: DisplayName='Copy project files using rsync'
+[2025-06-12 17:31:06Z INFO StepsRunner] Evaluating: success()
+[2025-06-12 17:31:06Z INFO StepsRunner] Result: false
+[2025-06-12 17:31:06Z INFO StepsRunner] Skipping step due to condition evaluation.
+[2025-06-12 17:31:06Z INFO StepsRunner] No need for updating job result with current step result 'Skipped'.
+[2025-06-12 17:31:06Z INFO StepsRunner] Current state: job state = 'Failed'
+[2025-06-12 17:31:06Z INFO StepsRunner] Processing step: DisplayName='Deploy to VM via SSH with password'
+[2025-06-12 17:31:06Z INFO StepsRunner] Evaluating: success()
+[2025-06-12 17:31:06Z INFO StepsRunner] Result: false
+[2025-06-12 17:31:06Z INFO StepsRunner] Skipping step due to condition evaluation.
+[2025-06-12 17:31:06Z INFO StepsRunner] No need for updating job result with current step result 'Skipped'.
+[2025-06-12 17:31:06Z INFO StepsRunner] Current state: job state = 'Failed'
+[2025-06-12 17:31:06Z INFO JobRunner] Finalize job.
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Bin': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/bin'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Root': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Diag': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_diag'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Bin': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/bin'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Root': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Diag': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_diag'
+[2025-06-12 17:31:06Z INFO JobExtension] Initialize Env context
+[2025-06-12 17:31:06Z INFO JobExtension] Initialize steps context
+[2025-06-12 17:31:06Z INFO JobExtension] Total accessible running process: 444.
+[2025-06-12 17:31:06Z INFO JobExtension] Inspecting process environment variables. PID: 85934 (mdworker_shared)
+[2025-06-12 17:31:06Z INFO LinuxProcessExtensions] Read env from output of `ps e -p 85934 -o command`
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Bin': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/bin'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Root': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper] Starting process:
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper]   File name: 'ps'
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper]   Arguments: 'e -p 85934 -o command'
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper]   Working directory: '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper]   Require exit code zero: 'False'
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper]   Encoding web name:  ; code page: ''
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper]   Force kill process on cancellation: 'False'
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper]   Redirected STDIN: 'False'
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper]   Persist current code page: 'False'
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper]   Keep redirected STDIN open: 'False'
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper]   High priority process: 'False'
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper] Process started with process id 85937, waiting for process exit.
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper] Finished process 85937 with exit code 0, and elapsed time 00:00:00.0156553.
+[2025-06-12 17:31:06Z INFO LinuxProcessExtensions] Successfully dump environment variables for 85934
+[2025-06-12 17:31:06Z INFO JobExtension] Inspecting process environment variables. PID: 85928 (mdworker_shared)
+[2025-06-12 17:31:06Z INFO LinuxProcessExtensions] Read env from output of `ps e -p 85928 -o command`
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Bin': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/bin'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Root': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper] Starting process:
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper]   File name: 'ps'
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper]   Arguments: 'e -p 85928 -o command'
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper]   Working directory: '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper]   Require exit code zero: 'False'
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper]   Encoding web name:  ; code page: ''
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper]   Force kill process on cancellation: 'False'
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper]   Redirected STDIN: 'False'
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper]   Persist current code page: 'False'
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper]   Keep redirected STDIN open: 'False'
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper]   High priority process: 'False'
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper] Process started with process id 85938, waiting for process exit.
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper] Finished process 85938 with exit code 0, and elapsed time 00:00:00.0149867.
+[2025-06-12 17:31:06Z INFO LinuxProcessExtensions] Successfully dump environment variables for 85928
+[2025-06-12 17:31:06Z INFO JobExtension] Inspecting process environment variables. PID: 85929 (mdworker_shared)
+[2025-06-12 17:31:06Z INFO LinuxProcessExtensions] Read env from output of `ps e -p 85929 -o command`
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Bin': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/bin'
+[2025-06-12 17:31:06Z INFO HostContext] Well known directory 'Root': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper] Starting process:
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper]   File name: 'ps'
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper]   Arguments: 'e -p 85929 -o command'
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper]   Working directory: '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper]   Require exit code zero: 'False'
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper]   Encoding web name:  ; code page: ''
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper]   Force kill process on cancellation: 'False'
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper]   Redirected STDIN: 'False'
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper]   Persist current code page: 'False'
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper]   Keep redirected STDIN open: 'False'
+[2025-06-12 17:31:06Z INFO ProcessInvokerWrapper]   High priority process: 'False'
+[2025-06-12 17:31:07Z INFO ProcessInvokerWrapper] Process started with process id 85940, waiting for process exit.
+[2025-06-12 17:31:07Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2025-06-12 17:31:07Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2025-06-12 17:31:07Z INFO ProcessInvokerWrapper] Finished process 85940 with exit code 0, and elapsed time 00:00:00.0145021.
+[2025-06-12 17:31:07Z INFO LinuxProcessExtensions] Successfully dump environment variables for 85929
+[2025-06-12 17:31:07Z INFO JobExtension] Inspecting process environment variables. PID: 85930 (mdworker_shared)
+[2025-06-12 17:31:07Z INFO LinuxProcessExtensions] Read env from output of `ps e -p 85930 -o command`
+[2025-06-12 17:31:07Z INFO HostContext] Well known directory 'Bin': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/bin'
+[2025-06-12 17:31:07Z INFO HostContext] Well known directory 'Root': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:07Z INFO ProcessInvokerWrapper] Starting process:
+[2025-06-12 17:31:07Z INFO ProcessInvokerWrapper]   File name: 'ps'
+[2025-06-12 17:31:07Z INFO ProcessInvokerWrapper]   Arguments: 'e -p 85930 -o command'
+[2025-06-12 17:31:07Z INFO ProcessInvokerWrapper]   Working directory: '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:07Z INFO ProcessInvokerWrapper]   Require exit code zero: 'False'
+[2025-06-12 17:31:07Z INFO ProcessInvokerWrapper]   Encoding web name:  ; code page: ''
+[2025-06-12 17:31:07Z INFO ProcessInvokerWrapper]   Force kill process on cancellation: 'False'
+[2025-06-12 17:31:07Z INFO ProcessInvokerWrapper]   Redirected STDIN: 'False'
+[2025-06-12 17:31:07Z INFO ProcessInvokerWrapper]   Persist current code page: 'False'
+[2025-06-12 17:31:07Z INFO ProcessInvokerWrapper]   Keep redirected STDIN open: 'False'
+[2025-06-12 17:31:07Z INFO ProcessInvokerWrapper]   High priority process: 'False'
+[2025-06-12 17:31:07Z INFO ProcessInvokerWrapper] Process started with process id 85941, waiting for process exit.
+[2025-06-12 17:31:07Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2025-06-12 17:31:07Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2025-06-12 17:31:07Z INFO ProcessInvokerWrapper] Finished process 85941 with exit code 0, and elapsed time 00:00:00.0140196.
+[2025-06-12 17:31:07Z INFO LinuxProcessExtensions] Successfully dump environment variables for 85930
+[2025-06-12 17:31:07Z INFO JobExtension] Inspecting process environment variables. PID: 85933 (mdworker_shared)
+[2025-06-12 17:31:07Z INFO LinuxProcessExtensions] Read env from output of `ps e -p 85933 -o command`
+[2025-06-12 17:31:07Z INFO HostContext] Well known directory 'Bin': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/bin'
+[2025-06-12 17:31:07Z INFO HostContext] Well known directory 'Root': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:07Z INFO ProcessInvokerWrapper] Starting process:
+[2025-06-12 17:31:07Z INFO ProcessInvokerWrapper]   File name: 'ps'
+[2025-06-12 17:31:07Z INFO ProcessInvokerWrapper]   Arguments: 'e -p 85933 -o command'
+[2025-06-12 17:31:07Z INFO ProcessInvokerWrapper]   Working directory: '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:07Z INFO ProcessInvokerWrapper]   Require exit code zero: 'False'
+[2025-06-12 17:31:07Z INFO ProcessInvokerWrapper]   Encoding web name:  ; code page: ''
+[2025-06-12 17:31:07Z INFO ProcessInvokerWrapper]   Force kill process on cancellation: 'False'
+[2025-06-12 17:31:07Z INFO ProcessInvokerWrapper]   Redirected STDIN: 'False'
+[2025-06-12 17:31:07Z INFO ProcessInvokerWrapper]   Persist current code page: 'False'
+[2025-06-12 17:31:07Z INFO ProcessInvokerWrapper]   Keep redirected STDIN open: 'False'
+[2025-06-12 17:31:07Z INFO ProcessInvokerWrapper]   High priority process: 'False'
+[2025-06-12 17:31:07Z INFO ProcessInvokerWrapper] Process started with process id 85942, waiting for process exit.
+[2025-06-12 17:31:07Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2025-06-12 17:31:07Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2025-06-12 17:31:07Z INFO ProcessInvokerWrapper] Finished process 85942 with exit code 0, and elapsed time 00:00:00.0137997.
+[2025-06-12 17:31:07Z INFO LinuxProcessExtensions] Successfully dump environment variables for 85933
+[2025-06-12 17:31:07Z INFO JobExtension] Inspecting process environment variables. PID: 85932 (mdworker_shared)
+[2025-06-12 17:31:07Z INFO LinuxProcessExtensions] Read env from output of `ps e -p 85932 -o command`
+[2025-06-12 17:31:07Z INFO HostContext] Well known directory 'Bin': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/bin'
+[2025-06-12 17:31:07Z INFO HostContext] Well known directory 'Root': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:07Z INFO ProcessInvokerWrapper] Starting process:
+[2025-06-12 17:31:07Z INFO ProcessInvokerWrapper]   File name: 'ps'
+[2025-06-12 17:31:07Z INFO ProcessInvokerWrapper]   Arguments: 'e -p 85932 -o command'
+[2025-06-12 17:31:07Z INFO ProcessInvokerWrapper]   Working directory: '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:07Z INFO ProcessInvokerWrapper]   Require exit code zero: 'False'
+[2025-06-12 17:31:07Z INFO ProcessInvokerWrapper]   Encoding web name:  ; code page: ''
+[2025-06-12 17:31:07Z INFO ProcessInvokerWrapper]   Force kill process on cancellation: 'False'
+[2025-06-12 17:31:07Z INFO ProcessInvokerWrapper]   Redirected STDIN: 'False'
+[2025-06-12 17:31:07Z INFO ProcessInvokerWrapper]   Persist current code page: 'False'
+[2025-06-12 17:31:07Z INFO ProcessInvokerWrapper]   Keep redirected STDIN open: 'False'
+[2025-06-12 17:31:07Z INFO ProcessInvokerWrapper]   High priority process: 'False'
+[2025-06-12 17:31:07Z INFO ProcessInvokerWrapper] Process started with process id 85943, waiting for process exit.
+[2025-06-12 17:31:07Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2025-06-12 17:31:07Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2025-06-12 17:31:07Z INFO ProcessInvokerWrapper] Finished process 85943 with exit code 0, and elapsed time 00:00:00.0135267.
+[2025-06-12 17:31:07Z INFO LinuxProcessExtensions] Successfully dump environment variables for 85932
+[2025-06-12 17:31:07Z INFO JobServerQueue] Try to append 1 batches web console lines for record 'ac6047d1-0418-4530-ad61-55514fc2a90f', success rate: 1/1.
+[2025-06-12 17:31:07Z INFO JobServerQueue] Try to append 1 batches web console lines for record '0cbad22a-2cbf-4d78-adcd-7a2d240a07cc', success rate: 1/1.
+[2025-06-12 17:31:07Z INFO JobServerQueue] Try to append 1 batches web console lines for record '5c734265-1ee5-455d-b3f6-68b57fcb6e73', success rate: 1/1.
+[2025-06-12 17:31:07Z INFO ExecutionContext] Publish step telemetry for current step {
+  "action": "complete_job",
+  "type": "runner",
+  "stage": "Post",
+  "stepId": "5c734265-1ee5-455d-b3f6-68b57fcb6e73",
+  "result": "succeeded",
+  "errorMessages": [],
+  "executionTimeInSeconds": 1,
+  "startTime": "2025-06-12T17:31:06.952508Z",
+  "finishTime": "2025-06-12T17:31:07.054674Z"
+}.
+[2025-06-12 17:31:07Z INFO JobRunner] Job result after all job steps finish: Failed
+[2025-06-12 17:31:07Z INFO JobRunner] Completing the job execution context.
+[2025-06-12 17:31:07Z INFO JobRunner] Shutting down the job server queue.
+[2025-06-12 17:31:07Z INFO JobServerQueue] Fire signal to shutdown all queues.
+[2025-06-12 17:31:07Z INFO JobServerQueue] All queue process task stopped.
+[2025-06-12 17:31:07Z INFO JobServerQueue] Web console line queue drained.
+[2025-06-12 17:31:07Z INFO JobServerQueue] Uploading 4 files in one shot.
+[2025-06-12 17:31:07Z INFO JobServerQueue] Try to upload 4 log files or attachments, success rate: 4/4.
+[2025-06-12 17:31:07Z INFO JobServerQueue] File upload queue drained.
+[2025-06-12 17:31:07Z INFO JobServerQueue] Starting results-based upload queue...
+[2025-06-12 17:31:07Z INFO JobServerQueue] Uploading 4 file(s) in one shot through results service.
+[2025-06-12 17:31:07Z INFO JobServerQueue] Got a step log file to send to results service.
+[2025-06-12 17:31:07Z INFO JobServerQueue] Starting upload of step log file to results service ResultsLog, /Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_diag/blocks/1d15a936-609b-4610-a0cc-0d93396b92a7_ac6047d1-0418-4530-ad61-55514fc2a90f.1
+[2025-06-12 17:31:08Z INFO JobServerQueue] Got a step log file to send to results service.
+[2025-06-12 17:31:08Z INFO JobServerQueue] Starting upload of step log file to results service ResultsLog, /Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_diag/blocks/1d15a936-609b-4610-a0cc-0d93396b92a7_0cbad22a-2cbf-4d78-adcd-7a2d240a07cc.1
+[2025-06-12 17:31:09Z INFO JobServerQueue] Got a step log file to send to results service.
+[2025-06-12 17:31:09Z INFO JobServerQueue] Starting upload of step log file to results service ResultsLog, /Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_diag/blocks/1d15a936-609b-4610-a0cc-0d93396b92a7_5c734265-1ee5-455d-b3f6-68b57fcb6e73.1
+[2025-06-12 17:31:09Z INFO JobServerQueue] Got a job log file to send to results service.
+[2025-06-12 17:31:09Z INFO JobServerQueue] Starting upload of job log file to results service ResultsLog, /Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_diag/blocks/1d15a936-609b-4610-a0cc-0d93396b92a7_54f9b4cf-9b7c-5a04-8591-b03cdc1a0810.1
+[2025-06-12 17:31:10Z INFO JobServerQueue] Tried to upload 4 file(s) to results, success rate: 4/4.
+[2025-06-12 17:31:10Z INFO JobServerQueue] Results upload queue drained.
+[2025-06-12 17:31:10Z INFO JobServerQueue] Timeline update queue drained.
+[2025-06-12 17:31:10Z INFO JobServerQueue] Disposing job server ...
+[2025-06-12 17:31:10Z INFO JobServerQueue] Disposing results server ...
+[2025-06-12 17:31:10Z INFO JobServerQueue] All queue process tasks have been stopped, and all queues are drained.
+[2025-06-12 17:31:10Z INFO TempDirectoryManager] Cleaning runner temp folder: /Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_work/_temp
+[2025-06-12 17:31:10Z INFO HostContext] Well known directory 'Bin': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/bin'
+[2025-06-12 17:31:10Z INFO HostContext] Well known directory 'Root': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner'
+[2025-06-12 17:31:10Z INFO HostContext] Well known directory 'Diag': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_diag'
+[2025-06-12 17:31:10Z INFO HostContext] Well known config file 'Telemetry': '/Users/yahya/Desktop/gestion-des-salles-de-tp/actions-runner/_diag/.telemetry'
+[2025-06-12 17:31:10Z INFO JobRunner] Raising job completed against run service
+[2025-06-12 17:31:10Z INFO Worker] Job completed.
