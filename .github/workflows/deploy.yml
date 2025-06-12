@@ -21,7 +21,7 @@ jobs:
       run: |
         sshpass -p "${{ secrets.PASSWORD }}" ssh -p 2222 -o StrictHostKeyChecking=no ${{ secrets.USER }}@${{ secrets.HOST }} << 'EOF'
           cd ~/app
-          docker-compose down || true
-          docker-compose build
-          docker-compose up -d
+          docker compose down || true
+          docker compose build
+          docker compose up -d
         EOF
