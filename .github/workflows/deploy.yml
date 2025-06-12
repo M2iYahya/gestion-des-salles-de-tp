@@ -7,7 +7,6 @@ on:
 jobs:
   deploy:
     runs-on: self-hosted
-    labels: [local-runner]
 
     steps:
     - name: Install sshpass
