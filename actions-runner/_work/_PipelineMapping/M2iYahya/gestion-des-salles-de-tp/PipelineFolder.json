@@ -1,12 +1,12 @@
 ﻿{
-  "repositoryName": "Yahya-Elamri/gestion-des-salles-de-tp",
+  "repositoryName": "M2iYahya/gestion-des-salles-de-tp",
   "pipelineDirectory": "gestion-des-salles-de-tp",
   "workspaceDirectory": "gestion-des-salles-de-tp/gestion-des-salles-de-tp",
   "repositories": {
-    "Yahya-Elamri/gestion-des-salles-de-tp": {
+    "M2iYahya/gestion-des-salles-de-tp": {
       "repositoryPath": "gestion-des-salles-de-tp/gestion-des-salles-de-tp",
-      "lastRunOn": "06/12/2025 18:28:37 +01:00"
+      "lastRunOn": "06/13/2025 00:40:13 +01:00"
     }
   },
-  "lastRunOn": "06/12/2025 19:05:34 +01:00"
+  "lastRunOn": "06/13/2025 00:40:13 +01:00"
 }
