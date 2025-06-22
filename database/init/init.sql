@@ -14,6 +14,6 @@ INSERT INTO personne (
 VALUES (
     'lazaret', 'A123456', '60000', '1980-05-10', 'ali.berkani@example.com', 
     'PROFESSEUR', '$2a$10$42dLDMB73Vz5aX.YulCf9.89sp6iSZiRReV/eabsQ49AhyS7DpQ.a', 
-    'aouinti', 'BMCE', '7654321', 'Ali', 'ADMINISTRATEUR', 
+    'allali', 'BMCE', '7654321', 'Ali', 'ADMINISTRATEUR', 
     '06090807', 'oujda'
 );
