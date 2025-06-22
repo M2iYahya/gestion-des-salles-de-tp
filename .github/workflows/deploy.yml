@@ -9,26 +9,20 @@ jobs:
     runs-on: self-hosted
 
     steps:
-    - name: Checkout code on self-hosted runner
+    - name: Checkout Code
       uses: actions/checkout@v3
 
-    - name: Deploy to remote VM via SSH
-      env:
-        GIT_REPO: "git@github.com:yourusername/yourrepo.git"  # Change to your repo SSH URL
-        APP_DIR: "/home/${{ secrets.USER }}/app"
+    - name: Deploy to VM via SSH with password
       run: |
-        ssh -o StrictHostKeyChecking=no ${{ secrets.USER }}@${{ secrets.HOST }} << EOF
-          if [ ! -d "$APP_DIR" ]; then
-            echo "Project directory does not exist, cloning repo..."
-            git clone $GIT_REPO $APP_DIR
+        sshpass -p "${{ secrets.PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.USER }}@${{ secrets.HOST }} << 'EOF'
+          if [ ! -d ~/app ]; then
+            git clone https://github.com/M2iYahya/gestion-des-salles-de-tp ~/app
           else
-            echo "Project directory exists, pulling latest changes..."
-            cd $APP_DIR
-            git pull origin main
+            cd ~/app
+            git pull
           fi
-          cd $APP_DIR
+          cd ~/app
           docker compose down || true
           docker compose build
           docker compose up -d
         EOF
-
