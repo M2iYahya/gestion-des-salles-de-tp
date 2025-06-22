@@ -9,19 +9,26 @@ jobs:
     runs-on: self-hosted
 
     steps:
-    - name: Checkout Code
+    - name: Checkout code on self-hosted runner
       uses: actions/checkout@v3
 
-    - name: Copy project files using rsync
+    - name: Deploy to remote VM via SSH
+      env:
+        GIT_REPO: "git@github.com:yourusername/yourrepo.git"  # Change to your repo SSH URL
+        APP_DIR: "/home/${{ secrets.USER }}/app"
       run: |
-        sshpass -p "${{ secrets.PASSWORD }}" rsync -avz --delete \
-          -e "ssh -o StrictHostKeyChecking=no" ./ ${{ secrets.USER }}@${{ secrets.HOST }}:/home/${{ secrets.USER }}/app
-
-    - name: Deploy to VM via SSH with password
-      run: |
-        sshpass -p "${{ secrets.PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.USER }}@${{ secrets.HOST }} << 'EOF'
-          cd ~/app
+        ssh -o StrictHostKeyChecking=no ${{ secrets.USER }}@${{ secrets.HOST }} << EOF
+          if [ ! -d "$APP_DIR" ]; then
+            echo "Project directory does not exist, cloning repo..."
+            git clone $GIT_REPO $APP_DIR
+          else
+            echo "Project directory exists, pulling latest changes..."
+            cd $APP_DIR
+            git pull origin main
+          fi
+          cd $APP_DIR
           docker compose down || true
           docker compose build
           docker compose up -d
         EOF
+
